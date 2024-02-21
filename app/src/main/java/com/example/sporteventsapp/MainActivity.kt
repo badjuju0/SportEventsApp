@@ -1,35 +1,36 @@
 package com.example.sporteventsapp
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.compose.*
+import androidx.compose.material3.Scaffold
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.sporteventsapp.compose.BottomBar
 import com.example.sporteventsapp.compose.EventScreen
+import com.example.sporteventsapp.compose.NavGraph
 import com.example.sporteventsapp.compose.RegistrationScreen
-import com.example.sporteventsapp.compose.mUserViewModel
-import com.example.sporteventsapp.data.UserViewModel
+
+
 
 class MainActivity : ComponentActivity() {
+    @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
     override fun onCreate(savedInstanceState: Bundle?) {
-        mUserViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
+
         super.onCreate(savedInstanceState)
         setContent {
             val navController = rememberNavController()
-            NavHost(navController = navController, startDestination = "RegistrationScreen" ){
-                composable("RegistrationScreen"){
-                    RegistrationScreen{
-                        navController.navigate("EventScreen")
-                    }
-                }
-                composable("EventScreen"){
-                    EventScreen()
-                }
-
+            Scaffold (bottomBar = { BottomBar(navController = navController)}){
+                NavGraph(navController = navController)
             }
+
+
         }
     }
 }

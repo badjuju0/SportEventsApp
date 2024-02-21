@@ -11,7 +11,6 @@ import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
-import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -22,51 +21,21 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
-import androidx.navigation.NavHostController
-import com.example.sporteventsapp.MainActivity
-
-
 
 
 @Composable
-fun RegistrationScreen(navController: NavController) {
-        Column(modifier = Modifier
+fun LoginScreen(navController: NavController){
+    Column (
+        modifier = Modifier
             .fillMaxSize()
             .offset(y = 60.dp),
-            horizontalAlignment = Alignment.CenterHorizontally){
+        horizontalAlignment = Alignment.CenterHorizontally
+    ){
+            Text(text = "Войти в аккаунт", fontSize = 30.sp, color = Color.DarkGray)
 
-            Row {
-                Text("Регистрация", fontSize = 30.sp, modifier = Modifier.
-                offset(x= 30.dp))
-
-
-                TextButton(onClick = {
-                    navController.navigate(Screens.Login.route)
-                }, modifier = Modifier.
-                offset(x= 80.dp)) {
-                    Text(text = "Войти", fontSize = 16.sp, color = Color(0xFF0069FF))
-                }
-            }
-            var firstName_text by remember { mutableStateOf("") }
-            var lastName_text by remember { mutableStateOf("") }
             var email_text by remember { mutableStateOf("") }
             var password_text by remember { mutableStateOf("") }
-
-            OutlinedTextField(
-                modifier = Modifier.width(343.dp),
-                value = firstName_text,
-                onValueChange = { firstName_text = it },
-                label = { Text("Имя") })
-
-
-
-            OutlinedTextField(
-                modifier = Modifier.width(343.dp),
-                value = lastName_text,
-                onValueChange = {lastName_text = it },
-                label = { Text("Фамилия") })
 
             OutlinedTextField(
                 modifier = Modifier.width(343.dp),
@@ -74,15 +43,16 @@ fun RegistrationScreen(navController: NavController) {
                 onValueChange = { email_text = it },
                 label = { Text("Email") })
 
+
+
             OutlinedTextField(
                 modifier = Modifier.width(343.dp),
                 value = password_text,
-                onValueChange = { password_text = it },
-                label = { Text("Создайте пароль") })
+                onValueChange = {password_text = it },
+                label = { Text("Пароль") })
 
             Button(onClick = {
                 navController.navigate(Screens.Event.route)
-
 
             },
                 modifier = Modifier
@@ -91,10 +61,12 @@ fun RegistrationScreen(navController: NavController) {
                 colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xFF0069FF)),
                 shape = RoundedCornerShape(100)
             ) {
-                Text(text = "Зарегистрироваться", fontSize = 16.sp, color = Color.White)
+                Text(text = "Войти", fontSize = 16.sp, color = Color.White)
             }
-        }
 
     }
+}
+
+
 
 
