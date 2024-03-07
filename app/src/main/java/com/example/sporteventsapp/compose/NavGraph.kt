@@ -1,6 +1,8 @@
 package com.example.sporteventsapp.compose
 
+import androidx.compose.foundation.background
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -8,6 +10,7 @@ import androidx.navigation.compose.composable
 @Composable
 fun NavGraph (navController: NavHostController){
     NavHost(
+        modifier = Modifier.background(color = background),
         navController = navController,
         startDestination = Screens.Registration.route)
     {

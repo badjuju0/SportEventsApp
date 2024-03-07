@@ -74,7 +74,7 @@ fun EventCreateScreen(){
         },
             modifier = Modifier
                 .width(343.dp),
-            colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xFF0069FF)),
+            colors = ButtonDefaults.buttonColors(backgroundColor = buttonColor),
             shape = RoundedCornerShape(100)
         ) {
             Text(text = "Дальше", fontSize = 16.sp, color = Color.White)

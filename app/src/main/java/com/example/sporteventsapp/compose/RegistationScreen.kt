@@ -46,7 +46,7 @@ fun RegistrationScreen(navController: NavController) {
                     navController.navigate(Screens.Login.route)
                 }, modifier = Modifier.
                 offset(x= 80.dp)) {
-                    Text(text = "Войти", fontSize = 16.sp, color = Color(0xFF0069FF))
+                    Text(text = "Войти", fontSize = 16.sp, color = buttonColor)
                 }
             }
             var firstName_text by remember { mutableStateOf("") }
@@ -88,7 +88,7 @@ fun RegistrationScreen(navController: NavController) {
                 modifier = Modifier
                     .width(343.dp)
                     .offset(y = 60.dp),
-                colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xFF0069FF)),
+                colors = ButtonDefaults.buttonColors(backgroundColor = buttonColor),
                 shape = RoundedCornerShape(100)
             ) {
                 Text(text = "Зарегистрироваться", fontSize = 16.sp, color = Color.White)

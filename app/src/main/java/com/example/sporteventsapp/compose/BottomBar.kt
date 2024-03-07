@@ -1,5 +1,6 @@
 package com.example.sporteventsapp.compose
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
@@ -9,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
@@ -29,7 +31,7 @@ fun BottomBar( navController: NavHostController){
 
     val bottomBarDestination = screens.any{it.route == currentDestination?.route}
     if (bottomBarDestination){
-        NavigationBar{
+        NavigationBar(containerColor = background){
             screens.forEach {screen->
                 AddItem(screen = screen,
                     navDestination = currentDestination ,
