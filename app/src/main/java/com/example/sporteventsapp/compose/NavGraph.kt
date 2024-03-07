@@ -22,13 +22,16 @@ fun NavGraph (navController: NavHostController){
             LoginScreen(navController)
         }
         composable(route = Screens.Event.route){
-            EventScreen()
+            EventScreen(navController)
         }
         composable(route = Screens.Profile.route){
             ProfileScreen(navController)
         }
         composable(route = Screens.EventCreate.route){
             EventCreateScreen()
+        }
+        composable(route = Screens.AboutEvent.route){
+            AboutEventScreen()
         }
     }
 }

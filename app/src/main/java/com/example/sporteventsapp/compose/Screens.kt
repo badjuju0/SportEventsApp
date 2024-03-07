@@ -28,5 +28,9 @@ sealed class Screens(val route: String,
     object EventCreate: Screens("EventCreateScreen",
         icon = Icons.Default.Person,
         title = "EventCreate")
+
+    object AboutEvent:Screens("AboutEventScreen",
+        icon = Icons.Default.Person,
+        title = "AboutEvent")
 }
 

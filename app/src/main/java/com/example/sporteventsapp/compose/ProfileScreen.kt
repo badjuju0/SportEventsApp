@@ -28,14 +28,7 @@ import com.example.sporteventsapp.R
 @Composable
 fun ProfileScreen(navController: NavController){
     Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
-        Box (contentAlignment = Alignment.TopCenter,
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(245.dp)
-                .background(color = buttonColor)
-        ){
-            Text(text = "Профиль", fontSize = 30.sp, color = Color.White, modifier = Modifier.offset(y = 60.dp))
-        }
+        Text(text = "Профиль", fontSize = 30.sp, color = Color.Black)
         Image(painter = painterResource(id = R.drawable.icon), contentDescription = "icon", modifier = Modifier.clip(
             RoundedCornerShape(100.dp)
         ))
@@ -46,7 +39,7 @@ fun ProfileScreen(navController: NavController){
         },
             modifier = Modifier
                 .width(343.dp)
-                .offset(y = 300.dp),
+                .offset(y = 200.dp),
             colors = ButtonDefaults.buttonColors(backgroundColor = buttonColor),
             shape = RoundedCornerShape(100)
         ) {

@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
@@ -25,12 +26,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 
 
 @Composable
-fun EventScreen(){
-    Column (modifier = Modifier.fillMaxSize().padding(16.dp),
+fun EventScreen(navController: NavController){
+    Column (modifier = Modifier
+        .fillMaxSize()
+        .padding(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally){
         Text("Мероприятия", fontSize = 30.sp)
 
@@ -39,7 +43,7 @@ fun EventScreen(){
             modifier = Modifier.fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally){
             items(2) {
-                EventCard(modifier = Modifier)
+                EventCard(modifier = Modifier, navController)
 
             }
         }
@@ -47,33 +51,12 @@ fun EventScreen(){
     }
     }
 
-//@Composable
-//@OptIn(ExperimentalMaterial3Api::class)
-//fun SearchBar(){
-//    var text by remember { mutableStateOf("") }
-//    var active by remember { mutableStateOf(false) }
-//    SearchBar(modifier = Modifier.fillMaxWidth(),
-//        query = text,
-//        onQueryChange = {
-//            text = it
-//        },
-//        onSearch = {
-//            active = false
-//        },
-//        active = active,
-//        onActiveChange = {
-//            active = it
-//        },
-//        placeholder = {
-//            Text(text = "Enter your query")
-//        },
-//        trailingIcon = {
-//            Icon(imageVector = Icons.Default.Search, contentDescription = null)
-//        }) {}
-//}
+
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun EventCard(modifier: Modifier){
+fun EventCard(modifier: Modifier, navController: NavController){
     Card(
+        onClick = {navController.navigate(Screens.AboutEvent.route)},
         modifier = Modifier
             .width(343.dp)
             .height(77.dp)
