@@ -28,7 +28,7 @@ fun EventCreateScreen(){
             horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.SpaceEvenly
     ){
-        Text(text = "Укажите необходимые данные", fontSize = 20.sp, color = Color.DarkGray)
+        Text(text = "Укажите необходимые данные", fontSize = 20.sp, color = Color.Black)
 
         var text by remember { mutableStateOf("") }
 

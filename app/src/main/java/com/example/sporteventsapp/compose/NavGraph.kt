@@ -31,7 +31,10 @@ fun NavGraph (navController: NavHostController){
             EventCreateScreen()
         }
         composable(route = Screens.AboutEvent.route){
-            AboutEventScreen()
+            AboutEventScreen(navController)
+        }
+        composable(route = Screens.EventApplication.route){
+            EventApplicationScreen()
         }
     }
 }

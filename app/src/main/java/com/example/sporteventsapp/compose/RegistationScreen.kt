@@ -100,7 +100,7 @@ fun RegistrationScreen(navController: NavController) {
 
             Button(onClick = {
                 navController.navigate(Screens.Event.route)
-                viewModel.getRegister(registerPost)
+                //viewModel.getRegister(registerPost)
 
             },
                 modifier = Modifier

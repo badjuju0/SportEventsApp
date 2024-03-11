@@ -16,9 +16,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 
 @Composable
-fun AboutEventScreen(){
+fun AboutEventScreen(navController: NavController){
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier.fillMaxSize()){
@@ -41,7 +42,7 @@ fun AboutEventScreen(){
 
 
         Button(onClick = {
-            //navController.navigate(Screens.EventCreate.route)
+            navController.navigate(Screens.EventApplication.route)
 
         },
 
