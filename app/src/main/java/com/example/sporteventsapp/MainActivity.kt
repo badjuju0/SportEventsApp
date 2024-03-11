@@ -37,11 +37,6 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
 
-            val repository = Repository()
-            val viewModelFactory = MainViewModelFactory(repository)
-            viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
-            val loginPost = Post("Test","Test")
-//            viewModel.getLogin(loginPost)
 
 //            viewModel.myResponse.observe(this, Observer { response ->
 //                if(response.isSuccessful){
@@ -49,9 +44,12 @@ class MainActivity : ComponentActivity() {
 //                    Log.d("Main", response.code().toString())
 //                    Log.d("Main", response.message())
 //                } else{
-//                    Toast.makeText(this,response.code(),Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(this,response.code(), Toast.LENGTH_SHORT).show()
 //                }
 //            })
+
+
+
 
             val navController = rememberNavController()
             Scaffold (bottomBar = { BottomBar(navController = navController)}){

@@ -1,5 +1,6 @@
 package com.example.sporteventsapp.compose
 
+import android.annotation.SuppressLint
 import android.text.TextUtils
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -23,15 +24,27 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelStore
 import androidx.navigation.NavController
+import androidx.navigation.NavGraph
 import androidx.navigation.NavHostController
 import com.example.sporteventsapp.MainActivity
+import com.example.sporteventsapp.api.Repository
+import com.example.sporteventsapp.data.MainViewModel
+import com.example.sporteventsapp.data.MainViewModelFactory
+import com.example.sporteventsapp.data.PostReg
 
 
 
-
+@SuppressLint("SuspiciousIndentation")
 @Composable
 fun RegistrationScreen(navController: NavController) {
+
+    lateinit var viewModel: MainViewModel
+    val repository = Repository()
+    val viewModelFactory = MainViewModelFactory(repository)
+    viewModel = ViewModelProvider(ViewModelStore(), viewModelFactory).get(MainViewModel::class.java)
+
         Column(modifier = Modifier
             .fillMaxSize()
             .offset(y = 60.dp),
@@ -50,9 +63,14 @@ fun RegistrationScreen(navController: NavController) {
                 }
             }
             var firstName_text by remember { mutableStateOf("") }
-            var lastName_text by remember { mutableStateOf("") }
+            var secondName_text by remember { mutableStateOf("") }
             var email_text by remember { mutableStateOf("") }
             var password_text by remember { mutableStateOf("") }
+
+            val registerPost = PostReg(firstName_text, secondName_text, email_text, password_text)
+
+
+
 
             OutlinedTextField(
                 modifier = Modifier.width(343.dp),
@@ -64,8 +82,8 @@ fun RegistrationScreen(navController: NavController) {
 
             OutlinedTextField(
                 modifier = Modifier.width(343.dp),
-                value = lastName_text,
-                onValueChange = {lastName_text = it },
+                value = secondName_text,
+                onValueChange = {secondName_text = it },
                 label = { Text("Фамилия") })
 
             OutlinedTextField(
@@ -82,7 +100,7 @@ fun RegistrationScreen(navController: NavController) {
 
             Button(onClick = {
                 navController.navigate(Screens.Event.route)
-
+                viewModel.getRegister(registerPost)
 
             },
                 modifier = Modifier

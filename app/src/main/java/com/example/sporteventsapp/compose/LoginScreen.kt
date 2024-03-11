@@ -2,7 +2,10 @@ package com.example.sporteventsapp.compose
 
 import android.content.Intent
 import android.net.Uri
+import android.net.http.UrlRequest.Status
 import android.text.TextUtils
+import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -24,14 +27,26 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.LifecycleCoroutineScope
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelStore
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import com.example.sporteventsapp.MainActivity
+import com.example.sporteventsapp.api.Repository
 import com.example.sporteventsapp.data.MainViewModel
+import com.example.sporteventsapp.data.MainViewModelFactory
 import com.example.sporteventsapp.data.Post
 
 
 @Composable
 fun LoginScreen(navController: NavController){
+    lateinit var viewModel: MainViewModel
+    val repository = Repository()
+    val viewModelFactory = MainViewModelFactory(repository)
+    viewModel = ViewModelProvider(ViewModelStore(), viewModelFactory).get(MainViewModel::class.java)
+
 
     Column (
         modifier = Modifier
@@ -43,7 +58,7 @@ fun LoginScreen(navController: NavController){
 
             var email_text by remember { mutableStateOf("") }
             var password_text by remember { mutableStateOf("") }
-
+            val loginPost = Post(email_text,password_text)
             OutlinedTextField(
                 modifier = Modifier.width(343.dp),
                 value = email_text,
@@ -63,7 +78,7 @@ fun LoginScreen(navController: NavController){
 
             Button(onClick = {
                 navController.navigate(Screens.Event.route)
-
+                viewModel.getLogin(loginPost)
 
             },
                 modifier = Modifier

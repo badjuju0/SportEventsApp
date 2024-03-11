@@ -17,4 +17,11 @@ class MainViewModel(private val repository: Repository):ViewModel() {
             myResponse.value = response
         }
     }
+
+    fun getRegister(postReg: PostReg){
+        viewModelScope.launch {
+            val response = repository.getRegister(postReg)
+            myResponse.value = response
+        }
+    }
 }
