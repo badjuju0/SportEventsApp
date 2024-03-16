@@ -11,3 +11,7 @@ data class PostReg(
     val email: String,
     val password: String
 )
+data class PostNames(
+    val firstName: String,
+    val secondName: String
+)

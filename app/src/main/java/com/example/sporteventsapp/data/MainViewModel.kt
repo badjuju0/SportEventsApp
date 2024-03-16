@@ -9,12 +9,19 @@ import retrofit2.Response
 
 class MainViewModel(private val repository: Repository):ViewModel() {
 
+
     var myResponse: MutableLiveData<Response<Post>> = MutableLiveData()
 
-    fun getLogin(post: Post){
+    val myResponse1: MutableLiveData<Response<PostNames>> = MutableLiveData()
+
+
+    fun getLogin(post: Post, dataStoreManager: DataStoreManager){
         viewModelScope.launch {
             val response = repository.getLogin(post)
-            myResponse.value = response
+
+            dataStoreManager.saveNames(
+                namesData = PostNames(response.body()?.firstName.toString(),response.body()?.secondName.toString())
+            )
         }
     }
 
@@ -22,6 +29,13 @@ class MainViewModel(private val repository: Repository):ViewModel() {
         viewModelScope.launch {
             val response = repository.getRegister(postReg)
             myResponse.value = response
+        }
+    }
+
+    fun getNames(email:String){
+        viewModelScope.launch {
+            val response = repository.getNames(email)
+            myResponse1.value = response
         }
     }
 }

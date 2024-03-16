@@ -6,9 +6,10 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.sporteventsapp.data.DataStoreManager
 
 @Composable
-fun NavGraph (navController: NavHostController){
+fun NavGraph (navController: NavHostController, dataStoreManager: DataStoreManager){
     NavHost(
         modifier = Modifier.background(color = background),
         navController = navController,
@@ -19,13 +20,13 @@ fun NavGraph (navController: NavHostController){
             RegistrationScreen(navController)
         }
         composable(route = Screens.Login.route){
-            LoginScreen(navController)
+            LoginScreen(navController, dataStoreManager)
         }
         composable(route = Screens.Event.route){
             EventScreen(navController)
         }
         composable(route = Screens.Profile.route){
-            ProfileScreen(navController)
+            ProfileScreen(navController, dataStoreManager)
         }
         composable(route = Screens.EventCreate.route){
             EventCreateScreen()
