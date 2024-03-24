@@ -30,20 +30,30 @@ import androidx.navigation.NavGraph
 import androidx.navigation.NavHostController
 import com.example.sporteventsapp.MainActivity
 import com.example.sporteventsapp.api.Repository
+import com.example.sporteventsapp.api.interceptor
+import com.example.sporteventsapp.data.DataStoreManager
 import com.example.sporteventsapp.data.MainViewModel
 import com.example.sporteventsapp.data.MainViewModelFactory
 import com.example.sporteventsapp.data.PostReg
-
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import okhttp3.logging.HttpLoggingInterceptor
 
 
 @SuppressLint("SuspiciousIndentation")
 @Composable
-fun RegistrationScreen(navController: NavController) {
+fun RegistrationScreen(navController: NavController, dataStoreManager: DataStoreManager) {
 
     lateinit var viewModel: MainViewModel
+
     val repository = Repository()
+
     val viewModelFactory = MainViewModelFactory(repository)
+
     viewModel = ViewModelProvider(ViewModelStore(), viewModelFactory).get(MainViewModel::class.java)
+
+    interceptor.level = HttpLoggingInterceptor.Level.BODY
 
         Column(modifier = Modifier
             .fillMaxSize()
@@ -100,8 +110,9 @@ fun RegistrationScreen(navController: NavController) {
 
             Button(onClick = {
                 navController.navigate(Screens.Event.route)
-                viewModel.getRegister(registerPost)
-
+                CoroutineScope(Dispatchers.IO).launch {
+                    viewModel.getRegister(registerPost, dataStoreManager)
+                }
             },
                 modifier = Modifier
                     .width(343.dp)

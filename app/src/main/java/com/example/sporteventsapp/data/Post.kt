@@ -15,3 +15,20 @@ data class PostNames(
     val firstName: String,
     val secondName: String
 )
+
+data class PostEvents(
+    val sportType: String,
+    val title: String,
+    val dates: String,
+    val location: String,
+    val organizer: String,
+    val phoneNumber: String
+)
+
+data class Answer(
+    val answer: String
+)
+
+data class EventTitles(
+    val title: List<EventTitles>
+)

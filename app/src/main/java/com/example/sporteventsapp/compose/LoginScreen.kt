@@ -17,7 +17,11 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.OutlinedTextField
+import androidx.compose.material.SnackbarDuration
+import androidx.compose.material.SnackbarHost
+import androidx.compose.material.SnackbarHostState
 import androidx.compose.material.Text
+import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.currentComposer
@@ -77,7 +81,9 @@ fun LoginScreen(navController: NavController, dataStoreManager: DataStoreManager
 
 
 
+
     Column (
+
         modifier = Modifier
             .fillMaxSize()
             .offset(y = 60.dp),
@@ -92,8 +98,7 @@ fun LoginScreen(navController: NavController, dataStoreManager: DataStoreManager
 
             val loginPost = Post(email_text,password_text)
 
-//            var first by remember { mutableStateOf("") }
-//            var second by remember { mutableStateOf("") }
+
 
             OutlinedTextField(
                 modifier = Modifier.width(343.dp),
@@ -112,21 +117,19 @@ fun LoginScreen(navController: NavController, dataStoreManager: DataStoreManager
 
             //val coroutine = rememberCoroutineScope()
             Button(onClick = {
+                viewModel.getLogin(loginPost, dataStoreManager)
                 navController.navigate(Screens.Event.route)
 
-                CoroutineScope(Dispatchers.IO).launch{
-                    viewModel.getLogin(loginPost, dataStoreManager)
-
-//                    dataStoreManager.saveNames(
-//                        namesData = PostNames(),
-//                    )
-
-                }
 
 
 
 
 
+
+                //CoroutineScope(Dispatchers.IO).launch{
+
+
+                //}
 
 
             },

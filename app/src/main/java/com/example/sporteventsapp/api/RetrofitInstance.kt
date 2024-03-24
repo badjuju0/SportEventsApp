@@ -1,11 +1,12 @@
 package com.example.sporteventsapp.api
 
 
+import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.create
+
 
 val interceptor = HttpLoggingInterceptor()
 
@@ -15,15 +16,18 @@ val client = OkHttpClient.Builder()
     .addInterceptor(interceptor)
     .build()
 
+    var gson = GsonBuilder()
+        .setLenient()
+        .create()
+
     private val retrofit by lazy {
         Retrofit.Builder()
             .baseUrl("http://10.0.2.2:8080").client(client)
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
 //            .create(SimpleAPI::class.java)
     }
 
     val api  = retrofit.create(SimpleAPI::class.java)
-
 
 }

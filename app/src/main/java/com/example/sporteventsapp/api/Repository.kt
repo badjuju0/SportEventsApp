@@ -2,8 +2,11 @@ package com.example.sporteventsapp.api
 
 import android.util.Log
 import androidx.lifecycle.Observer
+import com.example.sporteventsapp.data.Answer
 import com.example.sporteventsapp.data.DataStoreManager
+import com.example.sporteventsapp.data.EventTitles
 import com.example.sporteventsapp.data.Post
+import com.example.sporteventsapp.data.PostEvents
 import com.example.sporteventsapp.data.PostNames
 import com.example.sporteventsapp.data.PostReg
 import retrofit2.Response
@@ -16,12 +19,18 @@ class Repository() {
 
     }
 
-    suspend fun getRegister(postReg: PostReg): Response<Post> {
+    suspend fun getRegister(postReg: PostReg): Response<PostNames> {
         return RetrofitInstance.api.getRegister(postReg)
     }
 
-    suspend fun getNames(email:String): Response<PostNames> {
-        return RetrofitInstance.api.getNames(email)
+    suspend fun getEvents(): Response<EventTitles> {
+        return RetrofitInstance.api.getEvents()
+
     }
+
+    suspend fun createEvent(postEvents: PostEvents): Response<Answer> {
+        return RetrofitInstance.api.createEvent(postEvents)
+    }
+
 }
 

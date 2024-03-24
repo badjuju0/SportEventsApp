@@ -17,7 +17,7 @@ fun NavGraph (navController: NavHostController, dataStoreManager: DataStoreManag
     {
         composable(route = Screens.Registration.route){
 
-            RegistrationScreen(navController)
+            RegistrationScreen(navController,dataStoreManager)
         }
         composable(route = Screens.Login.route){
             LoginScreen(navController, dataStoreManager)
