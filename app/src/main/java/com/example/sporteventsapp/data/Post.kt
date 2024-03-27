@@ -29,6 +29,10 @@ data class Answer(
     val answer: String
 )
 
+data class EventTitle(
+    val title: String
+)
+
 data class EventTitles(
-    val title: List<EventTitles>
+    val titles: List<EventTitle>
 )

@@ -1,12 +1,20 @@
 package com.example.sporteventsapp.data
 
 import android.util.Log
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.sporteventsapp.api.Repository
+import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withContext
 import retrofit2.Call
 import retrofit2.Response
 
@@ -17,9 +25,9 @@ class MainViewModel(private val repository: Repository):ViewModel() {
 
     val myResponse1: MutableLiveData<Response<PostNames>> = MutableLiveData()
 
-    var myResponse2: MutableLiveData<EventTitles> = MutableLiveData()
+    var myResponse2: List<EventTitle> by mutableStateOf(listOf())
 
-
+    var myResponse3: MutableLiveData<List<EventTitle>> = MutableLiveData()
 
     fun getLogin(post: Post, dataStoreManager: DataStoreManager){
 
@@ -50,13 +58,11 @@ class MainViewModel(private val repository: Repository):ViewModel() {
     }
 
 
-   fun getEvents(){
-         viewModelScope.launch {
-            val response = repository.getEvents()
-             response.body()?.let { EventTitles(title = it.title) }
-
-
-        }
+   @OptIn(ExperimentalCoroutinesApi::class)
+   fun getEvents()  = runBlocking{
+                val response = repository.getEvents()
+                myResponse3 = MutableLiveData(response.body()!!.titles)
+                response.body()?.let { EventTitles(it.titles) }
 
     }
 }

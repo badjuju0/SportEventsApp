@@ -1,6 +1,6 @@
 package com.example.sporteventsapp.compose
 
-import android.content.Context
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -14,12 +14,11 @@ import androidx.compose.material.Card
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -28,12 +27,12 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStore
 import androidx.navigation.NavController
 import com.example.sporteventsapp.api.Repository
-import com.example.sporteventsapp.data.EventTitles
+import com.example.sporteventsapp.data.EventTitle
 import com.example.sporteventsapp.data.MainViewModel
 import com.example.sporteventsapp.data.MainViewModelFactory
-import retrofit2.Call
 
 
+@SuppressLint("UnrememberedMutableState")
 @Composable
 fun EventScreen(navController: NavController){
 
@@ -45,12 +44,14 @@ fun EventScreen(navController: NavController){
 
     viewModel = ViewModelProvider(ViewModelStore(), viewModelFactory).get(MainViewModel::class.java)
 
+    val context = LocalLifecycleOwner.current
+
+    var titleList :List<EventTitle> by mutableStateOf(listOf())
 
     viewModel.getEvents()
-
-
-
-    //val titleList = viewModel.myResponse2
+    viewModel.myResponse3.observe(context, Observer {response ->
+        titleList = response
+    })
 
 
     Column (modifier = Modifier
@@ -62,9 +63,11 @@ fun EventScreen(navController: NavController){
 //        SearchBar()
         LazyColumn(
             modifier = Modifier.fillMaxWidth(),
-            horizontalAlignment = Alignment.CenterHorizontally){
-            items(1) {
-                EventCard(modifier = Modifier, navController)
+            horizontalAlignment = Alignment.CenterHorizontally
+            ){
+            
+            items(titleList) {text->
+                EventCard(modifier = Modifier, navController, text)
 
             }
         }
@@ -75,7 +78,7 @@ fun EventScreen(navController: NavController){
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun EventCard(modifier: Modifier, navController: NavController){
+fun EventCard(modifier: Modifier, navController: NavController, text: EventTitle, ){
     Card(
         onClick = {navController.navigate(Screens.AboutEvent.route)},
         modifier = Modifier
@@ -85,6 +88,8 @@ fun EventCard(modifier: Modifier, navController: NavController){
         shape = RoundedCornerShape(15.dp)
     ){
 
-            Text("titles.toString()", fontSize = 16.sp)
+            Text(text = text.title, fontSize = 16.sp, modifier = Modifier.padding(16.dp))
+
+
 
 }}
