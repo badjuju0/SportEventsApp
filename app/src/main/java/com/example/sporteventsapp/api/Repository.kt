@@ -2,6 +2,7 @@ package com.example.sporteventsapp.api
 
 import android.util.Log
 import androidx.lifecycle.Observer
+import com.example.sporteventsapp.data.AboutEvent
 import com.example.sporteventsapp.data.Answer
 import com.example.sporteventsapp.data.DataStoreManager
 import com.example.sporteventsapp.data.EventTitles
@@ -30,6 +31,11 @@ class Repository() {
 
     suspend fun createEvent(postEvents: PostEvents): Response<Answer> {
         return RetrofitInstance.api.createEvent(postEvents)
+    }
+
+    suspend fun getEvent(title: String): Response<AboutEvent> {
+        return RetrofitInstance.api.getEvent(title)
+
     }
 
 }

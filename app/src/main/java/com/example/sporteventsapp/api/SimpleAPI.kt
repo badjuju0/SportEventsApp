@@ -1,5 +1,6 @@
 package com.example.sporteventsapp.api
 
+import com.example.sporteventsapp.data.AboutEvent
 import com.example.sporteventsapp.data.Answer
 import com.example.sporteventsapp.data.EventTitles
 import com.example.sporteventsapp.data.Post
@@ -33,8 +34,8 @@ interface SimpleAPI {
 suspend fun getEvents():Response<EventTitles>
 
 
-//    @GET("/getNames")
-//    suspend fun getNames(
-//        @Path("email") email: String
-//    ):Response<PostNames>
+    @GET("/getEvents/{title}")
+    suspend fun getEvent(
+        @Path("title") title: String
+    ):Response<AboutEvent>
 }

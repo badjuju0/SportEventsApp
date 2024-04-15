@@ -121,11 +121,6 @@ fun LoginScreen(navController: NavController, dataStoreManager: DataStoreManager
                 navController.navigate(Screens.Event.route)
 
 
-
-
-
-
-
                 //CoroutineScope(Dispatchers.IO).launch{
 
 

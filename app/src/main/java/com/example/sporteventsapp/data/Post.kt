@@ -36,3 +36,12 @@ data class EventTitle(
 data class EventTitles(
     val titles: List<EventTitle>
 )
+
+data class AboutEvent(
+    val id: String,
+    val sportType: String,
+    val dates: String,
+    val location: String,
+    val organizer: String,
+    val phoneNumber: String
+)

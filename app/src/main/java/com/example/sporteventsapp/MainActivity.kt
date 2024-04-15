@@ -15,6 +15,7 @@ import com.example.sporteventsapp.compose.NavGraph
 import com.example.sporteventsapp.compose.RegistrationScreen
 import com.example.sporteventsapp.compose.background
 import com.example.sporteventsapp.data.DataStoreManager
+import com.example.sporteventsapp.data.EventTitle
 import com.example.sporteventsapp.data.MainViewModel
 import com.example.sporteventsapp.data.MainViewModelFactory
 import com.example.sporteventsapp.data.Post

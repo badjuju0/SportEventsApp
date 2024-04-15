@@ -21,7 +21,7 @@ import retrofit2.Response
 class MainViewModel(private val repository: Repository):ViewModel() {
 
 
-    var myResponse: MutableLiveData<Response<Post>> = MutableLiveData()
+    var myResponse: MutableLiveData<Response<AboutEvent>> = MutableLiveData()
 
     val myResponse1: MutableLiveData<Response<PostNames>> = MutableLiveData()
 
@@ -57,12 +57,16 @@ class MainViewModel(private val repository: Repository):ViewModel() {
         }
     }
 
-
-   @OptIn(ExperimentalCoroutinesApi::class)
    fun getEvents()  = runBlocking{
                 val response = repository.getEvents()
                 myResponse3 = MutableLiveData(response.body()!!.titles)
                 response.body()?.let { EventTitles(it.titles) }
 
     }
+
+    fun getEvent(title:String)  = runBlocking{
+        val response = repository.getEvent(title)
+        myResponse.value = response
+    }
+
 }

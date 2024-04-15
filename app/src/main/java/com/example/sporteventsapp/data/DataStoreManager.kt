@@ -25,19 +25,19 @@ class DataStoreManager(val context: Context) {
 
     }
 
-//    suspend fun saveTitles(titlesData: EventTitles){
-//        context.dataStore.edit { pref->
-//            pref[stringPreferencesKey("title")] = titlesData.titles.toString()
-//
-//        }
-//    }
-//
-//    fun getTitles() = context.dataStore.data.map { pref ->
-//        return@map EventTitles(
-//            pref[stringPreferencesKey("title")]?: "null"
-//
-//        )
-//
-//    }
+    suspend fun saveTitle(titleData: EventTitle){
+        context.dataStore.edit { pref->
+            pref[stringPreferencesKey("title")] = titleData.title
+
+        }
+    }
+
+    fun getTitle() = context.dataStore.data.map { pref ->
+        return@map EventTitle(
+            pref[stringPreferencesKey("title")]?: "null"
+
+        )
+
+    }
 
 }
