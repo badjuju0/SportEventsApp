@@ -50,6 +50,7 @@ fun AboutEventScreen(navController: NavController, dataStoreManager: DataStoreMa
 
     val context = LocalLifecycleOwner.current
 
+    var titleEvent by remember { mutableStateOf("") }
     var sportType by remember { mutableStateOf("") }
     var location by remember { mutableStateOf("") }
     var dates by remember { mutableStateOf("") }
@@ -58,6 +59,7 @@ fun AboutEventScreen(navController: NavController, dataStoreManager: DataStoreMa
     LaunchedEffect(key1 = true ){
         dataStoreManager.getTitle().collect{title->
             viewModel.getEvent(title = title.title)
+            titleEvent = title.title
         }
     }
 
@@ -82,7 +84,7 @@ fun AboutEventScreen(navController: NavController, dataStoreManager: DataStoreMa
             ){
             Column {
 
-                Text(text = "EventName", fontSize = 24.sp, color = Color.Black)
+                Text(text = titleEvent, fontSize = 24.sp, color = Color.Black)
                 Text(text = "Вид спорта:${sportType}", fontSize = 16.sp, color = Color.Gray)
                 Text(text = "Место проведения:${location}", fontSize = 16.sp, color = Color.Gray)
                 Text(text = "Сроки проведения:${dates}", fontSize = 16.sp, color = Color.Gray)
