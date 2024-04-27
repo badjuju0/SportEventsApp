@@ -61,12 +61,18 @@ class MainViewModel(private val repository: Repository):ViewModel() {
                 val response = repository.getEvents()
                 myResponse3 = MutableLiveData(response.body()!!.titles)
                 response.body()?.let { EventTitles(it.titles) }
-
     }
 
     fun getEvent(title:String)  = runBlocking{
         val response = repository.getEvent(title)
         myResponse.value = response
+    }
+
+    fun createApplication(postApplication: PostApplication){
+        viewModelScope.launch {
+            val response = repository.createApplication(postApplication)
+
+        }
     }
 
 }

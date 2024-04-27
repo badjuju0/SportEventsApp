@@ -9,4 +9,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="background">#FF5483B3</color>
     <color name="buttonColor">#FF052659</color>
+    <color name="cardColor">#FF4894FE</color>
+
 </resources>

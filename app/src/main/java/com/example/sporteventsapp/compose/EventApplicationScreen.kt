@@ -6,12 +6,17 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.selection.selectableGroup
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.RadioButton
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -22,28 +27,84 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelStore
+import com.example.sporteventsapp.api.Repository
+import com.example.sporteventsapp.data.DataStoreManager
+import com.example.sporteventsapp.data.MainViewModel
+import com.example.sporteventsapp.data.MainViewModelFactory
+import com.example.sporteventsapp.data.PostApplication
 
 @Composable
-fun EventApplicationScreen(){
+fun EventApplicationScreen(dataStoreManager: DataStoreManager){
+
+    lateinit var viewModel: MainViewModel
+
+    val repository = Repository()
+
+    val viewModelFactory = MainViewModelFactory(repository)
+
+    viewModel = ViewModelProvider(ViewModelStore(), viewModelFactory).get(MainViewModel::class.java)
+
     Column(modifier = Modifier
         .fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text("Подача заявки", fontSize = 20.sp)
-        RadioButtons()
-        var teamName_text by remember { mutableStateOf("") }
-        var phoneNumber_text by remember { mutableStateOf("") }
+        //RadioButtons()
+        var teamName by remember { mutableStateOf("") }
+        var phoneNumber by remember { mutableStateOf("") }
+        var age by remember { mutableStateOf("") }
+        var fio by remember { mutableStateOf("") }
+        var eventTitle by remember { mutableStateOf("") }
+        var approve by remember { mutableStateOf("false") }
         OutlinedTextField(
             modifier = Modifier.fillMaxWidth(),
-            value = teamName_text,
-            onValueChange = { teamName_text = it },
+            value = teamName,
+            onValueChange = { teamName = it },
             label = { Text("Название команды") })
+
 
         OutlinedTextField(
             modifier = Modifier.fillMaxWidth(),
-            value = phoneNumber_text,
-            onValueChange = { phoneNumber_text = it },
+            value = fio,
+            onValueChange = { fio = it },
+            label = { Text("ФИО участника") })
+
+        OutlinedTextField(
+            modifier = Modifier.fillMaxWidth(),
+            value = age,
+            onValueChange = { age = it },
+            label = { Text("Возраст участника") })
+
+        OutlinedTextField(
+            modifier = Modifier.fillMaxWidth(),
+            value = phoneNumber,
+            onValueChange = { phoneNumber = it },
             label = { Text("Контактный телефон") })
+
+        LaunchedEffect(key1 = true ){
+            dataStoreManager.getTitle().collect{title->
+                eventTitle = title.title
+            }
+
+        }
+
+        val post = PostApplication(fio,age,phoneNumber,teamName, approve, eventTitle)
+
+        Button(onClick = {
+            viewModel.createApplication(post)
+
+        },
+
+            modifier = Modifier
+                .width(343.dp)
+                .offset(y = 200.dp),
+            colors = ButtonDefaults.buttonColors(backgroundColor = buttonColor),
+            shape = RoundedCornerShape(100)
+        ) {
+            Text(text = "Отправить", fontSize = 16.sp, color = Color.White)
+        }
 
     }
 }

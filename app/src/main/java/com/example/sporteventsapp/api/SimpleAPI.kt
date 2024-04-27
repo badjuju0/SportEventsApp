@@ -4,6 +4,7 @@ import com.example.sporteventsapp.data.AboutEvent
 import com.example.sporteventsapp.data.Answer
 import com.example.sporteventsapp.data.EventTitles
 import com.example.sporteventsapp.data.Post
+import com.example.sporteventsapp.data.PostApplication
 import com.example.sporteventsapp.data.PostEvents
 import com.example.sporteventsapp.data.PostNames
 import com.example.sporteventsapp.data.PostReg
@@ -38,4 +39,9 @@ suspend fun getEvents():Response<EventTitles>
     suspend fun getEvent(
         @Path("title") title: String
     ):Response<AboutEvent>
+
+    @POST("/application")
+    suspend fun createApplication(
+        @Body postApplication: PostApplication
+    ): Response<Answer>
 }

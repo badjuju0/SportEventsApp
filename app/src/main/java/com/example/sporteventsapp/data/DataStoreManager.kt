@@ -40,4 +40,19 @@ class DataStoreManager(val context: Context) {
 
     }
 
+//    suspend fun saveEventId(eventIdData: EventId){
+//        context.dataStore.edit { pref->
+//            pref[stringPreferencesKey("eventId")] = eventIdData.id
+//
+//        }
+//    }
+//
+//    fun getEventId() = context.dataStore.data.map { pref ->
+//        return@map EventId(
+//            pref[stringPreferencesKey("eventId")]?: "null"
+//
+//        )
+//
+//    }
+
 }

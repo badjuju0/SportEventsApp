@@ -16,6 +16,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -31,12 +32,15 @@ import androidx.navigation.NavController
 import com.example.sporteventsapp.api.Repository
 import com.example.sporteventsapp.data.AboutEvent
 import com.example.sporteventsapp.data.DataStoreManager
+import com.example.sporteventsapp.data.EventId
 import com.example.sporteventsapp.data.EventTitle
 import com.example.sporteventsapp.data.MainViewModel
 import com.example.sporteventsapp.data.MainViewModelFactory
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 import retrofit2.Response
 
-@SuppressLint("UnrememberedMutableState")
+@SuppressLint("UnrememberedMutableState", "CoroutineCreationDuringComposition")
 @Composable
 fun AboutEventScreen(navController: NavController, dataStoreManager: DataStoreManager){
 
@@ -56,11 +60,14 @@ fun AboutEventScreen(navController: NavController, dataStoreManager: DataStoreMa
     var dates by remember { mutableStateOf("") }
     var organizer by remember { mutableStateOf("") }
     var phoneNumber by remember { mutableStateOf("") }
+    var id by remember { mutableStateOf("") }
+
     LaunchedEffect(key1 = true ){
         dataStoreManager.getTitle().collect{title->
             viewModel.getEvent(title = title.title)
             titleEvent = title.title
         }
+
     }
 
     viewModel.myResponse.observe(context, Observer {response ->
@@ -70,9 +77,18 @@ fun AboutEventScreen(navController: NavController, dataStoreManager: DataStoreMa
         dates = event.dates
         organizer = event.organizer
         phoneNumber = event.phoneNumber
+        id = event.id
+
+
     })
 
+    //val coroutine = rememberCoroutineScope()
 
+//    coroutine.launch{
+//        dataStoreManager.saveEventId(
+//            eventIdData = EventId(id)
+//        )
+//    }
 
     Column(
 

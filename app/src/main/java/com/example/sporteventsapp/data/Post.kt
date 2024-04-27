@@ -45,3 +45,16 @@ data class AboutEvent(
     val organizer: String,
     val phoneNumber: String
 )
+
+data class PostApplication(
+    val fio: String,
+    val age: String,
+    val phoneNumber: String,
+    val teamName: String? = null,
+    val approve: String? = null,
+    val eventTitle: String
+)
+
+data class EventId(
+    val id: String
+)

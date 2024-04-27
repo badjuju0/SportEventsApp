@@ -1,7 +1,10 @@
 package com.example.sporteventsapp.compose
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -20,7 +23,14 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ImageShader
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalLifecycleOwner
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.Observer
@@ -28,6 +38,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStore
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
+import com.example.sporteventsapp.R
 import com.example.sporteventsapp.api.Repository
 import com.example.sporteventsapp.data.DataStoreManager
 import com.example.sporteventsapp.data.EventTitle
@@ -97,13 +108,29 @@ fun EventCard(modifier: Modifier, navController: NavController, text: EventTitle
                   },
         modifier = Modifier
             .width(343.dp)
-            .height(77.dp)
+            .height(84.dp)
             .padding(10.dp),
+        backgroundColor = cardColor,
         shape = RoundedCornerShape(15.dp)
     ){
+        Row ( modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        )
+        {
+            Text(text = text.title, fontWeight = FontWeight.Bold, fontSize = 16.sp, color = Color.White, modifier = Modifier.padding(16.dp))
 
-            Text(text = text.title, fontSize = 16.sp, modifier = Modifier.padding(16.dp))
+            Image(painter =
+            painterResource(id = R.drawable.mark),
+                contentDescription = "mark",
+                modifier = Modifier
+                    .width(24.dp)
+                    .height(24.dp)
+                    .padding(5.dp)
+            )
+        }
 
 
 
-}}
+
+    }}

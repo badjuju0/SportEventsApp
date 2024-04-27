@@ -7,6 +7,7 @@ import com.example.sporteventsapp.data.Answer
 import com.example.sporteventsapp.data.DataStoreManager
 import com.example.sporteventsapp.data.EventTitles
 import com.example.sporteventsapp.data.Post
+import com.example.sporteventsapp.data.PostApplication
 import com.example.sporteventsapp.data.PostEvents
 import com.example.sporteventsapp.data.PostNames
 import com.example.sporteventsapp.data.PostReg
@@ -36,6 +37,10 @@ class Repository() {
     suspend fun getEvent(title: String): Response<AboutEvent> {
         return RetrofitInstance.api.getEvent(title)
 
+    }
+
+    suspend fun createApplication(postApplication: PostApplication): Response<Answer> {
+        return RetrofitInstance.api.createApplication(postApplication)
     }
 
 }
