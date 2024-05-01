@@ -12,6 +12,7 @@ import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.async
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
@@ -28,6 +29,10 @@ class MainViewModel(private val repository: Repository):ViewModel() {
     var myResponse2: List<EventTitle> by mutableStateOf(listOf())
 
     var myResponse3: MutableLiveData<List<EventTitle>> = MutableLiveData()
+
+    var myResponse4: MutableLiveData<List<ApplicationDTO>> = MutableLiveData()
+
+    val applicationsList = MutableStateFlow(emptyList<ApplicationDTO>())
 
     fun getLogin(post: Post, dataStoreManager: DataStoreManager){
 
@@ -73,6 +78,13 @@ class MainViewModel(private val repository: Repository):ViewModel() {
             val response = repository.createApplication(postApplication)
 
         }
+    }
+
+    fun getApplications(title:String)  = runBlocking{
+        val response = repository.getApplications(title)
+        //myResponse4 = MutableLiveData(response.body()!!.applications)
+        applicationsList.value = response.body()!!.applications
+        response.body()?.let { ApplicationsList(it.applications) }
     }
 
 }

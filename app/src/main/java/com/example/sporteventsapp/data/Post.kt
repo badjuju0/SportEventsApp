@@ -58,3 +58,17 @@ data class PostApplication(
 data class EventId(
     val id: String
 )
+
+data class ApplicationDTO(
+    val id: String,
+    val fio: String,
+    val age: String,
+    val phoneNumber: String,
+    val teamName: String? = null,
+    val approve: String? = null,
+    val eventTitle: String
+)
+
+data class ApplicationsList(
+    val applications: List<ApplicationDTO>
+)

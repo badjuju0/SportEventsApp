@@ -113,12 +113,22 @@ fun AboutEventScreen(navController: NavController, dataStoreManager: DataStoreMa
         }
 
 
+        Button(onClick = {
+            navController.navigate(Screens.Applications.route)
 
+        },
+            modifier = Modifier
+                .width(343.dp)
+                .offset(y = 200.dp),
+            colors = ButtonDefaults.buttonColors(backgroundColor = buttonColor),
+            shape = RoundedCornerShape(100)
+        ) {
+            androidx.compose.material.Text(text = "Рассмотреть заявки", fontSize = 16.sp, color = Color.White)
+        }
         Button(onClick = {
             navController.navigate(Screens.EventApplication.route)
 
         },
-
             modifier = Modifier
                 .width(343.dp)
                 .offset(y = 200.dp),

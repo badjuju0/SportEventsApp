@@ -2,7 +2,9 @@ package com.example.sporteventsapp.compose
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -16,6 +18,8 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Text
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.SearchBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -47,6 +51,7 @@ import com.example.sporteventsapp.data.MainViewModelFactory
 import kotlinx.coroutines.launch
 
 
+@OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnrememberedMutableState")
 @Composable
 fun EventScreen(navController: NavController, dataStoreManager: DataStoreManager){
@@ -68,14 +73,21 @@ fun EventScreen(navController: NavController, dataStoreManager: DataStoreManager
         titleList = response
     })
 
-
+    Box (modifier = Modifier
+        .height(90.dp)
+        .fillMaxWidth()
+        .background(color = lightColor),
+        Alignment.TopCenter,
+    )
+    {
+        Text("Мероприятия", fontSize = 30.sp, color = textColor)
+    }
     Column (modifier = Modifier
         .fillMaxSize()
-        .padding(16.dp),
+        .padding(top = 85.dp),
             horizontalAlignment = Alignment.CenterHorizontally){
-        Text("Мероприятия", fontSize = 30.sp)
 
-//        SearchBar()
+        //SearchBar()
         LazyColumn(
             modifier = Modifier.fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally

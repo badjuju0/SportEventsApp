@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.Observer
 import com.example.sporteventsapp.data.AboutEvent
 import com.example.sporteventsapp.data.Answer
+import com.example.sporteventsapp.data.ApplicationsList
 import com.example.sporteventsapp.data.DataStoreManager
 import com.example.sporteventsapp.data.EventTitles
 import com.example.sporteventsapp.data.Post
@@ -41,6 +42,11 @@ class Repository() {
 
     suspend fun createApplication(postApplication: PostApplication): Response<Answer> {
         return RetrofitInstance.api.createApplication(postApplication)
+    }
+
+    suspend fun getApplications(title: String): Response<ApplicationsList> {
+        return RetrofitInstance.api.getApplications(title)
+
     }
 
 }

@@ -39,5 +39,8 @@ fun NavGraph (navController: NavHostController, dataStoreManager: DataStoreManag
         composable(route = Screens.EventApplication.route){
             EventApplicationScreen(dataStoreManager)
         }
+        composable(route = Screens.Applications.route){
+            ApplicationScreen(navController, dataStoreManager)
+        }
     }
 }

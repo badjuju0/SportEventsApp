@@ -2,6 +2,7 @@ package com.example.sporteventsapp.api
 
 import com.example.sporteventsapp.data.AboutEvent
 import com.example.sporteventsapp.data.Answer
+import com.example.sporteventsapp.data.ApplicationsList
 import com.example.sporteventsapp.data.EventTitles
 import com.example.sporteventsapp.data.Post
 import com.example.sporteventsapp.data.PostApplication
@@ -44,4 +45,9 @@ suspend fun getEvents():Response<EventTitles>
     suspend fun createApplication(
         @Body postApplication: PostApplication
     ): Response<Answer>
+
+    @GET("/getApplications/{title}")
+    suspend fun getApplications(
+        @Path("title") title: String
+    ): Response<ApplicationsList>
 }
