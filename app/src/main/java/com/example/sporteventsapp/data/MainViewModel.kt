@@ -34,6 +34,8 @@ class MainViewModel(private val repository: Repository):ViewModel() {
 
     val applicationsList = MutableStateFlow(emptyList<ApplicationDTO>())
 
+    val participantsList = MutableStateFlow(emptyList<ApplicationDTO>())
+
     fun getLogin(post: Post, dataStoreManager: DataStoreManager){
 
         viewModelScope.launch {
@@ -84,6 +86,27 @@ class MainViewModel(private val repository: Repository):ViewModel() {
         val response = repository.getApplications(title)
         //myResponse4 = MutableLiveData(response.body()!!.applications)
         applicationsList.value = response.body()!!.applications
+        response.body()?.let { ApplicationsList(it.applications) }
+    }
+
+    fun approveApplication(id: String){
+        viewModelScope.launch {
+            val response = repository.approveApplication(id)
+
+        }
+    }
+
+    fun dismissApplication(id: String){
+        viewModelScope.launch {
+            val response = repository.dismissApplication(id)
+
+        }
+    }
+
+    fun getParticipants(title:String)  = runBlocking{
+        val response = repository.getParticipants(title)
+        //myResponse4 = MutableLiveData(response.body()!!.applications)
+        participantsList.value = response.body()!!.applications
         response.body()?.let { ApplicationsList(it.applications) }
     }
 

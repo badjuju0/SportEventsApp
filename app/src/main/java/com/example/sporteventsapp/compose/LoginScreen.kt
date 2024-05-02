@@ -8,10 +8,16 @@ import android.net.http.UrlRequest.Status
 import android.text.TextUtils
 import android.util.Log
 import android.widget.Toast
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
@@ -21,6 +27,7 @@ import androidx.compose.material.SnackbarDuration
 import androidx.compose.material.SnackbarHost
 import androidx.compose.material.SnackbarHostState
 import androidx.compose.material.Text
+import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -79,17 +86,24 @@ fun LoginScreen(navController: NavController, dataStoreManager: DataStoreManager
     val context =LocalLifecycleOwner.current
     interceptor.level = HttpLoggingInterceptor.Level.BODY
 
-
+    Box (modifier = Modifier
+        .height(90.dp)
+        .fillMaxWidth()
+        .background(color = lightColor),
+        Alignment.TopCenter,
+    ){
+        Text(text = "Войти в аккаунт", fontSize = 30.sp, color = textColor)
+    }
 
 
     Column (
 
         modifier = Modifier
             .fillMaxSize()
-            .offset(y = 60.dp),
+            .offset(y = 120.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ){
-            Text(text = "Войти в аккаунт", fontSize = 30.sp, color = Color.DarkGray)
+
 
 
 
@@ -98,21 +112,41 @@ fun LoginScreen(navController: NavController, dataStoreManager: DataStoreManager
 
             val loginPost = Post(email_text,password_text)
 
+        Box(modifier = Modifier
+            .height(160.dp)
+            .fillMaxWidth(),
+        ){
+            Column (modifier = Modifier
+                .fillMaxSize(),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
+            ){
+                OutlinedTextField(
+                    modifier = Modifier.padding(bottom = 15.dp).width(343.dp),
+                    shape = RoundedCornerShape(12.dp),
+                    colors = TextFieldDefaults.outlinedTextFieldColors(
+                        focusedBorderColor = cardColor,
+                        unfocusedBorderColor = cardColor),
+                    value = email_text,
+                    onValueChange = { email_text = it },
+                    label = { Text("Email", fontSize = 14.sp, color = Color.Gray) })
 
 
-            OutlinedTextField(
-                modifier = Modifier.width(343.dp),
-                value = email_text,
-                onValueChange = { email_text = it },
-                label = { Text("Email") })
+
+                OutlinedTextField(
+                    modifier = Modifier.padding(bottom = 15.dp).width(343.dp),
+                    shape = RoundedCornerShape(12.dp),
+                    colors = TextFieldDefaults.outlinedTextFieldColors(
+                        focusedBorderColor = cardColor,
+                        unfocusedBorderColor = cardColor),
+                    value = password_text,
+                    onValueChange = {password_text = it },
+                    label = { Text("Пароль", fontSize = 14.sp, color = Color.Gray) })
+            }
+        }
 
 
 
-            OutlinedTextField(
-                modifier = Modifier.width(343.dp),
-                value = password_text,
-                onValueChange = {password_text = it },
-                label = { Text("Пароль") })
 
 
             //val coroutine = rememberCoroutineScope()

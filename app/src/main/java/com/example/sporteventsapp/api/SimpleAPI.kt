@@ -50,4 +50,19 @@ suspend fun getEvents():Response<EventTitles>
     suspend fun getApplications(
         @Path("title") title: String
     ): Response<ApplicationsList>
+
+    @POST("/approveApplication/{id}")
+    suspend fun approveApplication(
+        @Path("id") id: String
+    ): Response<Answer>
+
+    @POST("/dismissApplication/{id}")
+    suspend fun dismissApplication(
+        @Path("id") id: String
+    ): Response<Answer>
+
+    @GET("/participants/{title}")
+    suspend fun getParticipants(
+        @Path("title") title: String
+    ): Response<ApplicationsList>
 }

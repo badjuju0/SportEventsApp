@@ -1,14 +1,19 @@
 package com.example.sporteventsapp.compose
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.requiredSize
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
@@ -33,6 +38,16 @@ import com.example.sporteventsapp.data.DataStoreManager
 
 @Composable
 fun ProfileScreen(navController: NavController, dataStoreManager: DataStoreManager){
+    Box(modifier =
+    Modifier
+        .height(325.dp)
+        .fillMaxWidth())
+    {
+        Image(painter = painterResource(id = R.drawable.bg),
+            contentDescription ="bg",
+            modifier = Modifier
+                .fillMaxWidth())
+    }
     Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
 
         var firstName by remember { mutableStateOf("") }
@@ -44,19 +59,29 @@ fun ProfileScreen(navController: NavController, dataStoreManager: DataStoreManag
             }
         }
 
-        Text(text = "Профиль", fontSize = 30.sp, color = Color.Black)
-        Image(painter = painterResource(id = R.drawable.icon), contentDescription = "icon", modifier = Modifier.clip(
-            RoundedCornerShape(100.dp)
+        Text(text = "Профиль", fontSize = 30.sp, color = textColor)
+        Image(painter = painterResource(id = R.drawable.icon),
+            contentDescription = "icon",
+            modifier = Modifier
+                .offset(y = 100.dp)
+                .border(
+                    BorderStroke(8.dp, Color.White),
+                    CircleShape
+                )
+                .padding(bottom = 100.dp)
+                .requiredSize(280.dp)
+                .clip(
+            CircleShape
         ))
-        Text(text = firstName, fontSize = 30.sp, color = Color.DarkGray, modifier = Modifier.offset(y = 50.dp))
-        Text(text = secondName, fontSize = 30.sp, color = Color.DarkGray, modifier = Modifier.offset(y = 50.dp))
+        Text(text = firstName, fontSize = 30.sp, color = textColor, modifier = Modifier.offset(y = 50.dp))
+        Text(text = secondName, fontSize = 30.sp, color = textColor, modifier = Modifier.offset(y = 50.dp))
         Button(onClick = {
             navController.navigate(Screens.EventCreate.route)
 
         },
             modifier = Modifier
                 .width(343.dp)
-                .offset(y = 200.dp),
+                .offset(y = 100.dp),
             colors = ButtonDefaults.buttonColors(backgroundColor = buttonColor),
             shape = RoundedCornerShape(100)
         ) {

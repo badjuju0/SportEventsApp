@@ -37,7 +37,6 @@ class Repository() {
 
     suspend fun getEvent(title: String): Response<AboutEvent> {
         return RetrofitInstance.api.getEvent(title)
-
     }
 
     suspend fun createApplication(postApplication: PostApplication): Response<Answer> {
@@ -46,6 +45,19 @@ class Repository() {
 
     suspend fun getApplications(title: String): Response<ApplicationsList> {
         return RetrofitInstance.api.getApplications(title)
+
+    }
+
+    suspend fun approveApplication(id: String): Response<Answer> {
+        return RetrofitInstance.api.approveApplication(id)
+    }
+
+    suspend fun dismissApplication(id: String): Response<Answer> {
+        return RetrofitInstance.api.dismissApplication(id)
+    }
+
+    suspend fun getParticipants(title: String): Response<ApplicationsList> {
+        return RetrofitInstance.api.getParticipants(title)
 
     }
 

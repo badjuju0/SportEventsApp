@@ -1,7 +1,6 @@
 package com.example.sporteventsapp.compose
 
 import android.annotation.SuppressLint
-import android.util.Log
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.expandVertically
@@ -36,62 +35,43 @@ import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelStore
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.sporteventsapp.R
 import com.example.sporteventsapp.api.Repository
-
 import com.example.sporteventsapp.data.ApplicationDTO
 import com.example.sporteventsapp.data.DataStoreManager
 import com.example.sporteventsapp.data.MainViewModel
 import com.example.sporteventsapp.data.MainViewModelFactory
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import okhttp3.internal.wait
 
 @SuppressLint("UnrememberedMutableState")
 @Composable
-fun ApplicationScreen(navController: NavController, dataStoreManager: DataStoreManager){
+fun ParticipantsScreen(navController: NavController, dataStoreManager: DataStoreManager){
 
     val repository = Repository()
 
     val viewModel = viewModel<MainViewModel>(factory = MainViewModelFactory(repository))
 
-    //lateinit var viewModel: MainViewModel
-    //val viewModelFactory = MainViewModelFactory(repository)
-    //viewModel = ViewModelProvider(ViewModelStore(), viewModelFactory).get(MainViewModel::class.java)
-    //val context = LocalLifecycleOwner.current
-    //var applicationsList :List<ApplicationDTO> by mutableStateOf(listOf())
-    val applicationsList by viewModel.applicationsList.collectAsState()
-    var titleEvent by remember { mutableStateOf("") }
+    val participantsList by viewModel.participantsList.collectAsState()
 
-    val deletedItem =  remember { mutableStateListOf<ApplicationDTO>() }
+    var titleEvent by remember { mutableStateOf("") }
 
     LaunchedEffect(key1 = true ){
         dataStoreManager.getTitle().collect{title->
             titleEvent = title.title
-            viewModel.getApplications(titleEvent)
+            viewModel.getParticipants(titleEvent)
         }
-//        viewModel.myResponse4.observe(context, Observer { response ->
-//            applicationsList = response
-//        })
     }
 
     Column (modifier = Modifier
         .fillMaxSize()
         .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally){
-        Text("Заявки", fontSize = 30.sp)
+        Text("Участники", fontSize = 30.sp)
 
 
 //        SearchBar()
@@ -99,15 +79,9 @@ fun ApplicationScreen(navController: NavController, dataStoreManager: DataStoreM
             modifier = Modifier.fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally
         ){
-            items(applicationsList) {application->
+            items(participantsList) {participant->
+                ParticipantCard(modifier = Modifier, participant)
 
-                AnimatedVisibility(
-                    visible = !deletedItem.contains(application),
-                    enter = expandVertically(),
-                    exit = shrinkVertically(animationSpec = tween(durationMillis = 1000))
-                    ) {
-                    ApplicationCard(modifier = Modifier, application, deletedItem)
-                }
 
             }
         }
@@ -120,13 +94,8 @@ fun ApplicationScreen(navController: NavController, dataStoreManager: DataStoreM
 @OptIn(ExperimentalMaterialApi::class)
 
 @Composable
-fun ApplicationCard(modifier: Modifier, application: ApplicationDTO,deletedItem: SnapshotStateList<ApplicationDTO> ){
+fun ParticipantCard(modifier: Modifier, participant: ApplicationDTO){
     val coroutine = rememberCoroutineScope()
-
-    val repository = Repository()
-
-    val viewModel = viewModel<MainViewModel>(factory = MainViewModelFactory(repository))
-
 
     val imageList = listOf(
         R.drawable.men1,
@@ -164,41 +133,11 @@ fun ApplicationCard(modifier: Modifier, application: ApplicationDTO,deletedItem:
                 verticalArrangement = Arrangement.SpaceEvenly
             )
             {
-                Text(text = application.fio, fontWeight = FontWeight.Bold, fontSize = 16.sp, color = Color.White, modifier = Modifier.padding(5.dp))
+                Text(text = participant.fio, fontWeight = FontWeight.Bold, fontSize = 16.sp, color = Color.White, modifier = Modifier.padding(5.dp))
 
-                Text(text = "Возраст: ${application.age}", fontWeight = FontWeight.Bold, fontSize = 12.sp, color = Color.Gray, modifier = Modifier.padding(5.dp))
+                Text(text = "Возраст: ${participant.age}", fontWeight = FontWeight.Bold, fontSize = 12.sp, color = Color.Gray, modifier = Modifier.padding(5.dp))
 
-                Row( modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.Start,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Image(
-                        painter =
-                        painterResource(id = R.drawable.x),
-                        contentDescription = "x",
-                        modifier = Modifier
-                            .clickable(onClick = {
-                                viewModel.dismissApplication(application.id)
-                                deletedItem.add(application) })
-                            .requiredSize(70.dp)
-                            .padding(bottom = 15.dp)
-                    )
-                    Image(
-                        painter =
-                        painterResource(id = R.drawable.accept),
-                        contentDescription = "gal",
-                        modifier = Modifier
-                            .clickable(onClick = {
-                                viewModel.approveApplication(application.id)
-                                deletedItem.add(application)
-                            }
-
-                            )
-                            .requiredSize(70.dp)
-                            .padding(bottom = 15.dp)
-                    )
-                }
-        }
+            }
         }
 
 

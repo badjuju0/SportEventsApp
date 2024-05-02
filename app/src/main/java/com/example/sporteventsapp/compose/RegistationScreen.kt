@@ -2,10 +2,16 @@ package com.example.sporteventsapp.compose
 
 import android.annotation.SuppressLint
 import android.text.TextUtils
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
@@ -13,6 +19,7 @@ import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
 import androidx.compose.material.TextButton
+import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -55,23 +62,30 @@ fun RegistrationScreen(navController: NavController, dataStoreManager: DataStore
 
     interceptor.level = HttpLoggingInterceptor.Level.BODY
 
+    Box (modifier = Modifier
+        .height(90.dp)
+        .fillMaxWidth()
+        .background(color = lightColor),
+        Alignment.TopCenter,
+    ){Row {
+        Text("Регистрация", color = textColor, fontSize = 30.sp, modifier = Modifier.
+        offset(x= 35.dp))
+
+
+        TextButton(onClick = {
+            navController.navigate(Screens.Login.route)
+        }, modifier = Modifier.
+        offset(x= 80.dp)) {
+            Text(text = "Войти", fontSize = 16.sp, color = textColor)
+        }
+    }}
+
         Column(modifier = Modifier
             .fillMaxSize()
-            .offset(y = 60.dp),
+            .offset(y = 120.dp),
             horizontalAlignment = Alignment.CenterHorizontally){
 
-            Row {
-                Text("Регистрация", fontSize = 30.sp, modifier = Modifier.
-                offset(x= 30.dp))
 
-
-                TextButton(onClick = {
-                    navController.navigate(Screens.Login.route)
-                }, modifier = Modifier.
-                offset(x= 80.dp)) {
-                    Text(text = "Войти", fontSize = 16.sp, color = buttonColor)
-                }
-            }
             var firstName_text by remember { mutableStateOf("") }
             var secondName_text by remember { mutableStateOf("") }
             var email_text by remember { mutableStateOf("") }
@@ -81,32 +95,69 @@ fun RegistrationScreen(navController: NavController, dataStoreManager: DataStore
 
 
 
+            Box(modifier = Modifier
+                .height(315.dp)
+                .fillMaxWidth(),
+            )
+            {
+                Column (modifier = Modifier
+                    .fillMaxSize(),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center
+                ){
+                    OutlinedTextField(
+                        modifier = Modifier
+                            .padding(bottom = 15.dp)
+                            .width(343.dp),
+                        shape = RoundedCornerShape(12.dp),
+                        colors = TextFieldDefaults.outlinedTextFieldColors(
+                            focusedBorderColor = cardColor,
+                            unfocusedBorderColor = cardColor),
+                        value = firstName_text,
+                        onValueChange = { firstName_text = it },
+                        label = { Text("Имя", fontSize = 14.sp, color = Color.Gray) })
 
-            OutlinedTextField(
-                modifier = Modifier.width(343.dp),
-                value = firstName_text,
-                onValueChange = { firstName_text = it },
-                label = { Text("Имя") })
 
 
+                    OutlinedTextField(
+                        modifier = Modifier
+                            .padding(bottom = 15.dp)
+                            .width(343.dp),
+                        shape = RoundedCornerShape(12.dp),
+                        colors = TextFieldDefaults.outlinedTextFieldColors(
+                            focusedBorderColor = cardColor,
+                            unfocusedBorderColor = cardColor),
+                        value = secondName_text,
+                        onValueChange = {secondName_text = it },
+                        label = { Text("Фамилия",fontSize = 14.sp, color = Color.Gray) })
 
-            OutlinedTextField(
-                modifier = Modifier.width(343.dp),
-                value = secondName_text,
-                onValueChange = {secondName_text = it },
-                label = { Text("Фамилия") })
+                    OutlinedTextField(
+                        modifier = Modifier
+                            .padding(bottom = 15.dp)
+                            .width(343.dp),
+                        shape = RoundedCornerShape(12.dp),
+                        colors = TextFieldDefaults.outlinedTextFieldColors(
+                            focusedBorderColor = cardColor,
+                            unfocusedBorderColor = cardColor),
+                        value = email_text,
+                        onValueChange = { email_text = it },
+                        label = { Text("Email",fontSize = 14.sp, color = Color.Gray) })
 
-            OutlinedTextField(
-                modifier = Modifier.width(343.dp),
-                value = email_text,
-                onValueChange = { email_text = it },
-                label = { Text("Email") })
+                    OutlinedTextField(
+                        modifier = Modifier
+                            .padding(bottom = 15.dp)
+                            .width(343.dp),
+                        shape = RoundedCornerShape(12.dp),
+                        colors = TextFieldDefaults.outlinedTextFieldColors(
+                            focusedBorderColor = cardColor,
+                            unfocusedBorderColor = cardColor),
+                        value = password_text,
+                        onValueChange = { password_text = it },
+                        label = { Text("Создайте пароль",fontSize = 14.sp, color = Color.Gray) })
+                }
 
-            OutlinedTextField(
-                modifier = Modifier.width(343.dp),
-                value = password_text,
-                onValueChange = { password_text = it },
-                label = { Text("Создайте пароль") })
+            }
+
 
             Button(onClick = {
                 navController.navigate(Screens.Event.route)

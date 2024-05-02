@@ -57,7 +57,7 @@ fun EventApplicationScreen(dataStoreManager: DataStoreManager){
         var age by remember { mutableStateOf("") }
         var fio by remember { mutableStateOf("") }
         var eventTitle by remember { mutableStateOf("") }
-        var approve by remember { mutableStateOf("false") }
+        var approve by remember { mutableStateOf(null) }
         OutlinedTextField(
             modifier = Modifier.fillMaxWidth(),
             value = teamName,

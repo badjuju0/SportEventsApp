@@ -1,8 +1,10 @@
 package com.example.sporteventsapp.compose
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
@@ -112,19 +114,39 @@ fun AboutEventScreen(navController: NavController, dataStoreManager: DataStoreMa
 
         }
 
+        Row (
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.CenterVertically
+        ){
+            Button(onClick = {
+                navController.navigate(Screens.Applications.route)
 
-        Button(onClick = {
-            navController.navigate(Screens.Applications.route)
+            },
+                modifier = Modifier
+                    .width(170.dp)
+                    .offset(y = 200.dp),
+                colors = ButtonDefaults.buttonColors(backgroundColor = buttonColor),
+                shape = RoundedCornerShape(100)
+            ) {
+                androidx.compose.material.Text(text = "Рассмотреть заявки", fontSize = 16.sp, color = Color.White)
+            }
 
-        },
-            modifier = Modifier
-                .width(343.dp)
-                .offset(y = 200.dp),
-            colors = ButtonDefaults.buttonColors(backgroundColor = buttonColor),
-            shape = RoundedCornerShape(100)
-        ) {
-            androidx.compose.material.Text(text = "Рассмотреть заявки", fontSize = 16.sp, color = Color.White)
+            Button(onClick = {
+                navController.navigate(Screens.Participants.route)
+
+            },
+                modifier = Modifier
+                    .width(170.dp)
+                    .offset(y = 200.dp),
+                colors = ButtonDefaults.buttonColors(backgroundColor = buttonColor),
+                shape = RoundedCornerShape(100)
+            ) {
+                androidx.compose.material.Text(text = "Список участников", fontSize = 16.sp, color = Color.White)
+            }
         }
+
+
         Button(onClick = {
             navController.navigate(Screens.EventApplication.route)
 
