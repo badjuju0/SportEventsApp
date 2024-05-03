@@ -15,7 +15,7 @@ sealed class Screens(val route: String,
         )
     object Event: Screens("EventScreen",
         icon = Icons.Default.Home,
-        title = "Home"
+        title = "Мероприятия"
         )
     object Login: Screens("LoginScreen",
         icon = Icons.Default.Person,
@@ -23,7 +23,7 @@ sealed class Screens(val route: String,
         )
     object Profile: Screens("ProfileScreen",
         icon = Icons.Default.Person,
-        title = "Profile")
+        title = "Профиль")
 
     object EventCreate: Screens("EventCreateScreen",
         icon = Icons.Default.Person,

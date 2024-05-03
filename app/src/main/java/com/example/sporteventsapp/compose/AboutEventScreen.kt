@@ -108,7 +108,6 @@ fun AboutEventScreen(navController: NavController, dataStoreManager: DataStoreMa
                 Text(text = "Сроки проведения:${dates}", fontSize = 16.sp, color = Color.Gray)
 
                 Text(text = "Организатор:${organizer}", fontSize = 24.sp, color = Color.Black, modifier = Modifier.offset(y = 90.dp))
-                Text(text = "<ФИО организатора>", fontSize = 16.sp, color = Color.Black, modifier = Modifier.offset(y = 90.dp))
                 Text(text = "<Контактный номер телефона:${phoneNumber}>", fontSize = 16.sp, color = Color.Black, modifier = Modifier.offset(y = 90.dp))
             }
 

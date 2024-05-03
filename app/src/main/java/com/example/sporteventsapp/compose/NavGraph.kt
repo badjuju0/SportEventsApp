@@ -30,7 +30,7 @@ fun NavGraph (navController: NavHostController, dataStoreManager: DataStoreManag
             ProfileScreen(navController, dataStoreManager)
         }
         composable(route = Screens.EventCreate.route){
-            EventCreateScreen()
+            EventCreateScreen(navController)
         }
         composable(route = Screens.AboutEvent.route){
             val text: EventTitle

@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStore
+import androidx.navigation.NavController
 import com.example.sporteventsapp.api.Repository
 import com.example.sporteventsapp.api.interceptor
 import com.example.sporteventsapp.data.MainViewModel
@@ -32,7 +33,7 @@ import com.example.sporteventsapp.data.PostEvents
 import okhttp3.logging.HttpLoggingInterceptor
 
 @Composable
-fun EventCreateScreen(){
+fun EventCreateScreen(navController: NavController){
 
     lateinit var viewModel: MainViewModel
 
@@ -97,7 +98,7 @@ fun EventCreateScreen(){
 
         Button(onClick = {
             viewModel.createEvent(eventPost)
-
+            navController.navigate(Screens.Profile.route)
         },
             modifier = Modifier
                 .width(343.dp),

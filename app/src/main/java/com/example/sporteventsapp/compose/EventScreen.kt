@@ -3,6 +3,7 @@ package com.example.sporteventsapp.compose
 import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -11,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.requiredSize
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -73,6 +75,7 @@ fun EventScreen(navController: NavController, dataStoreManager: DataStoreManager
         titleList = response
     })
 
+
     Box (modifier = Modifier
         .height(90.dp)
         .fillMaxWidth()
@@ -109,6 +112,21 @@ fun EventScreen(navController: NavController, dataStoreManager: DataStoreManager
 fun EventCard(modifier: Modifier, navController: NavController, text: EventTitle,dataStoreManager: DataStoreManager ){
     val coroutine = rememberCoroutineScope()
 
+    val imageList = listOf(
+        R.drawable.badminton,
+        R.drawable.basketball,
+        R.drawable.boxing,
+        R.drawable.football,
+        R.drawable.run,
+        R.drawable.tennis,
+        R.drawable.stopwatch,
+        R.drawable.gymming,
+        R.drawable.trophy,
+        R.drawable.table,
+        R.drawable.bottle
+    )
+
+    val randomImage = imageList.random()
 
     Card(
         onClick = {navController.navigate(Screens.AboutEvent.route)
@@ -116,8 +134,7 @@ fun EventCard(modifier: Modifier, navController: NavController, text: EventTitle
                 dataStoreManager.saveTitle(
                     titleData = EventTitle(text.title)
                 )
-            }
-                  },
+            } },
         modifier = Modifier
             .width(343.dp)
             .height(84.dp)
@@ -130,6 +147,15 @@ fun EventCard(modifier: Modifier, navController: NavController, text: EventTitle
             verticalAlignment = Alignment.CenterVertically
         )
         {
+            Image(
+                painter =
+                painterResource(id = randomImage),
+                contentDescription = "type",
+                modifier = Modifier
+                    .clickable(onClick = {})
+                    .requiredSize(100.dp)
+                    .padding(10.dp))
+
             Text(text = text.title, fontWeight = FontWeight.Bold, fontSize = 16.sp, color = Color.White, modifier = Modifier.padding(16.dp))
 
             Image(painter =
