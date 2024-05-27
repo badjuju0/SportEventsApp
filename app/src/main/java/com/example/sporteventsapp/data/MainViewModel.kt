@@ -1,5 +1,6 @@
 package com.example.sporteventsapp.data
 
+import android.annotation.SuppressLint
 import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -30,16 +31,25 @@ class MainViewModel(private val repository: Repository):ViewModel() {
 
     var myResponse3: MutableLiveData<List<EventTitle>> = MutableLiveData()
 
+    val eventsList = MutableStateFlow(emptyList<EventTitle>())
+
+    val event = MutableStateFlow<AboutEvent?>(null)
+
     var myResponse4: MutableLiveData<List<ApplicationDTO>> = MutableLiveData()
 
     val applicationsList = MutableStateFlow(emptyList<ApplicationDTO>())
 
     val participantsList = MutableStateFlow(emptyList<ApplicationDTO>())
 
+    @SuppressLint("SuspiciousIndentation")
     fun getLogin(post: Post, dataStoreManager: DataStoreManager){
 
         viewModelScope.launch {
         val response = repository.getLogin(post)
+            dataStoreManager.saveEmail(
+                emailData = post.email
+            )
+        myResponse1.value = response
         dataStoreManager.saveNames(
             namesData = PostNames(response.body()?.firstName.toString(),response.body()?.secondName.toString())
         )
@@ -66,13 +76,17 @@ class MainViewModel(private val repository: Repository):ViewModel() {
 
    fun getEvents()  = runBlocking{
                 val response = repository.getEvents()
-                myResponse3 = MutableLiveData(response.body()!!.titles)
+                //myResponse3 = MutableLiveData(response.body()!!.titles)
+                //response.body()?.let { EventTitles(it.titles) }
+                eventsList.value = response.body()!!.titles
                 response.body()?.let { EventTitles(it.titles) }
     }
 
     fun getEvent(title:String)  = runBlocking{
         val response = repository.getEvent(title)
-        myResponse.value = response
+        event.value = response.body()
+        response.body()?.let { AboutEvent(it.id,it.sportType,it.dates,it.location,it.organizer,it.phoneNumber,it.owner) }
+        //myResponse.value = response
     }
 
     fun createApplication(postApplication: PostApplication){

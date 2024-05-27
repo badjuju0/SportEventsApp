@@ -15,6 +15,7 @@ import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.RadioButton
 import androidx.compose.material.Text
+import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -59,29 +60,53 @@ fun EventApplicationScreen(dataStoreManager: DataStoreManager){
         var eventTitle by remember { mutableStateOf("") }
         var approve by remember { mutableStateOf(null) }
         OutlinedTextField(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .padding(bottom = 15.dp)
+                .width(343.dp),
+            shape = RoundedCornerShape(12.dp),
+            colors = TextFieldDefaults.outlinedTextFieldColors(
+                focusedBorderColor = cardColor,
+                unfocusedBorderColor = cardColor),
             value = teamName,
             onValueChange = { teamName = it },
-            label = { Text("Название команды") })
+            label = { Text("Название команды", fontSize = 14.sp, color = Color.Gray) })
 
 
         OutlinedTextField(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .padding(bottom = 15.dp)
+                .width(343.dp),
+            shape = RoundedCornerShape(12.dp),
+            colors = TextFieldDefaults.outlinedTextFieldColors(
+                focusedBorderColor = cardColor,
+                unfocusedBorderColor = cardColor),
             value = fio,
             onValueChange = { fio = it },
-            label = { Text("ФИО участника") })
+            label = { Text("ФИО участника", fontSize = 14.sp, color = Color.Gray) })
 
         OutlinedTextField(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .padding(bottom = 15.dp)
+                .width(343.dp),
+            shape = RoundedCornerShape(12.dp),
+            colors = TextFieldDefaults.outlinedTextFieldColors(
+                focusedBorderColor = cardColor,
+                unfocusedBorderColor = cardColor),
             value = age,
             onValueChange = { age = it },
-            label = { Text("Возраст участника") })
+            label = { Text("Возраст участника", fontSize = 14.sp, color = Color.Gray) })
 
         OutlinedTextField(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .padding(bottom = 15.dp)
+                .width(343.dp),
+            shape = RoundedCornerShape(12.dp),
+            colors = TextFieldDefaults.outlinedTextFieldColors(
+                focusedBorderColor = cardColor,
+                unfocusedBorderColor = cardColor),
             value = phoneNumber,
             onValueChange = { phoneNumber = it },
-            label = { Text("Контактный телефон") })
+            label = { Text("Контактный телефон", fontSize = 14.sp, color = Color.Gray) })
 
         LaunchedEffect(key1 = true ){
             dataStoreManager.getTitle().collect{title->

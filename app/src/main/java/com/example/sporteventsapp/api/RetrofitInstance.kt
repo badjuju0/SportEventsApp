@@ -23,6 +23,7 @@ val client = OkHttpClient.Builder()
     private val retrofit by lazy {
         Retrofit.Builder()
             .baseUrl("http://10.0.2.2:8080").client(client)
+            //.baseUrl("https://badjuju0-sporteventsapp-backend-a0b1.twc1.net").client(client)
             //.baseUrl("http://192.168.1.110:8080").client(client)
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()

@@ -40,6 +40,20 @@ class DataStoreManager(val context: Context) {
 
     }
 
+    suspend fun saveEmail(emailData: String){
+        context.dataStore.edit { pref->
+            pref[stringPreferencesKey("email")] = emailData
+
+        }
+    }
+
+    fun getEmail() = context.dataStore.data.map { pref ->
+        return@map (
+                pref[stringPreferencesKey("email")]?: "null"
+                )
+
+    }
+
 //    suspend fun saveEventId(eventIdData: EventId){
 //        context.dataStore.edit { pref->
 //            pref[stringPreferencesKey("eventId")] = eventIdData.id

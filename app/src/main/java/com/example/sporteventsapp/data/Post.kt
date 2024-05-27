@@ -22,7 +22,8 @@ data class PostEvents(
     val dates: String,
     val location: String,
     val organizer: String,
-    val phoneNumber: String
+    val phoneNumber: String,
+    val owner: String
 )
 
 data class Answer(
@@ -43,7 +44,8 @@ data class AboutEvent(
     val dates: String,
     val location: String,
     val organizer: String,
-    val phoneNumber: String
+    val phoneNumber: String,
+    val owner: String
 )
 
 data class PostApplication(

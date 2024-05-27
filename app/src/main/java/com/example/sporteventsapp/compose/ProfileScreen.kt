@@ -4,8 +4,10 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -19,6 +21,7 @@ import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
+import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -58,8 +61,15 @@ fun ProfileScreen(navController: NavController, dataStoreManager: DataStoreManag
                 secondName= names.secondName
             }
         }
+        Row (modifier = Modifier.fillMaxWidth().offset(x= 150.dp)){
+            Text(text = "Профиль", fontSize = 30.sp, color = textColor)
+            TextButton(modifier = Modifier.padding(start = 55.dp), onClick = {
+                navController.navigate(Screens.Login.route)
+            }) {
+                Text(text = "Выйти", fontSize = 16.sp, color = textColor)
+            }
+        }
 
-        Text(text = "Профиль", fontSize = 30.sp, color = textColor)
         Image(painter = painterResource(id = R.drawable.icon),
             contentDescription = "icon",
             modifier = Modifier
@@ -71,8 +81,8 @@ fun ProfileScreen(navController: NavController, dataStoreManager: DataStoreManag
                 .padding(bottom = 100.dp)
                 .requiredSize(280.dp)
                 .clip(
-            CircleShape
-        ))
+                    CircleShape
+                ))
         Text(text = firstName, fontSize = 30.sp, color = textColor, modifier = Modifier.offset(y = 50.dp))
         Text(text = secondName, fontSize = 30.sp, color = textColor, modifier = Modifier.offset(y = 50.dp))
         Button(onClick = {

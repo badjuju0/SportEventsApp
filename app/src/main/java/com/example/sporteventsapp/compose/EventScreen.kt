@@ -23,6 +23,7 @@ import androidx.compose.material.Text
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.SearchBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.rememberCoroutineScope
@@ -43,6 +44,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStore
 import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.sporteventsapp.R
 import com.example.sporteventsapp.api.Repository
@@ -58,22 +60,28 @@ import kotlinx.coroutines.launch
 @Composable
 fun EventScreen(navController: NavController, dataStoreManager: DataStoreManager){
 
-    lateinit var viewModel: MainViewModel
-
     val repository = Repository()
 
-    val viewModelFactory = MainViewModelFactory(repository)
+    val viewModel = viewModel<MainViewModel>(factory = MainViewModelFactory(repository))
 
-    viewModel = ViewModelProvider(ViewModelStore(), viewModelFactory).get(MainViewModel::class.java)
+    val eventsList by viewModel.eventsList.collectAsState()
+
+//    lateinit var viewModel: MainViewModel
+//
+//    val repository = Repository()
+//
+//    val viewModelFactory = MainViewModelFactory(repository)
+//
+//    viewModel = ViewModelProvider(ViewModelStore(), viewModelFactory).get(MainViewModel::class.java)
 
     val context = LocalLifecycleOwner.current
 
     var titleList :List<EventTitle> by mutableStateOf(listOf())
 
     viewModel.getEvents()
-    viewModel.myResponse3.observe(context, Observer {response ->
-        titleList = response
-    })
+//    viewModel.myResponse3.observe(context, Observer {response ->
+//        titleList = response
+//    })
 
 
     Box (modifier = Modifier
@@ -83,7 +91,14 @@ fun EventScreen(navController: NavController, dataStoreManager: DataStoreManager
         Alignment.TopCenter,
     )
     {
-        Text("Мероприятия", fontSize = 30.sp, color = textColor)
+        Column(modifier = Modifier.fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            ) {
+
+            Text("Мероприятия", fontSize = 30.sp, color = textColor)
+            Text("Нажмите  на интересующее вас событие", fontSize = 14.sp, color = textColor, modifier = Modifier.padding(10.dp))
+        }
+
     }
     Column (modifier = Modifier
         .fillMaxSize()
@@ -96,7 +111,7 @@ fun EventScreen(navController: NavController, dataStoreManager: DataStoreManager
             horizontalAlignment = Alignment.CenterHorizontally
             ){
             
-            items(titleList) {text->
+            items(eventsList) {text->
                 EventCard(modifier = Modifier, navController, text, dataStoreManager)
 
             }

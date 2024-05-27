@@ -5,13 +5,16 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
+import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -27,13 +30,14 @@ import androidx.lifecycle.ViewModelStore
 import androidx.navigation.NavController
 import com.example.sporteventsapp.api.Repository
 import com.example.sporteventsapp.api.interceptor
+import com.example.sporteventsapp.data.DataStoreManager
 import com.example.sporteventsapp.data.MainViewModel
 import com.example.sporteventsapp.data.MainViewModelFactory
 import com.example.sporteventsapp.data.PostEvents
 import okhttp3.logging.HttpLoggingInterceptor
 
 @Composable
-fun EventCreateScreen(navController: NavController){
+fun EventCreateScreen(navController: NavController, dataStoreManager:DataStoreManager){
 
     lateinit var viewModel: MainViewModel
 
@@ -47,7 +51,7 @@ fun EventCreateScreen(navController: NavController){
 
     Column (modifier = Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.SpaceEvenly
+        verticalArrangement = Arrangement.Center
     ){
         Text(text = "Укажите необходимые данные", fontSize = 20.sp, color = Color.Black)
 
@@ -57,44 +61,87 @@ fun EventCreateScreen(navController: NavController){
         var location by remember { mutableStateOf("") }
         var organizer by remember { mutableStateOf("") }
         var phoneNumber by remember { mutableStateOf("") }
+        var owner by remember { mutableStateOf("") }
 
-        val eventPost  = PostEvents(sportType,title,dates,location,organizer,phoneNumber)
+        LaunchedEffect(key1 = true ){
+            dataStoreManager.getEmail().collect{email->
+                owner = email
+
+            }
+        }
+        val eventPost  = PostEvents(sportType,title,dates,location,organizer,phoneNumber, owner)
 
         OutlinedTextField(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .padding(bottom = 15.dp)
+                .width(343.dp),
+            shape = RoundedCornerShape(12.dp),
+            colors = TextFieldDefaults.outlinedTextFieldColors(
+                focusedBorderColor = cardColor,
+                unfocusedBorderColor = cardColor),
             value = sportType,
             onValueChange = { sportType = it },
-            label = { Text("Выберите вид спорта") })
+            label = { Text("Выберите вид спорта", fontSize = 14.sp, color = Color.Gray) })
 
         OutlinedTextField(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .padding(bottom = 15.dp)
+                .width(343.dp),
+            shape = RoundedCornerShape(12.dp),
+            colors = TextFieldDefaults.outlinedTextFieldColors(
+                focusedBorderColor = cardColor,
+                unfocusedBorderColor = cardColor),
             value = title,
             onValueChange = { title = it },
-            label = { Text("Название") })
+            label = { Text("Название", fontSize = 14.sp, color = Color.Gray) })
 
         OutlinedTextField(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .padding(bottom = 15.dp)
+                .width(343.dp),
+            shape = RoundedCornerShape(12.dp),
+            colors = TextFieldDefaults.outlinedTextFieldColors(
+                focusedBorderColor = cardColor,
+                unfocusedBorderColor = cardColor),
             value = dates,
             onValueChange = { dates = it },
-            label = { Text("Сроки проведения") })
+            label = { Text("Сроки проведения", fontSize = 14.sp, color = Color.Gray) })
 
         OutlinedTextField(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .padding(bottom = 15.dp)
+                .width(343.dp),
+            shape = RoundedCornerShape(12.dp),
+            colors = TextFieldDefaults.outlinedTextFieldColors(
+                focusedBorderColor = cardColor,
+                unfocusedBorderColor = cardColor),
             value = location,
             onValueChange = { location = it },
-            label = { Text("Место проведения") })
+            label = { Text("Место проведения", fontSize = 14.sp, color = Color.Gray) })
 
         OutlinedTextField(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .padding(bottom = 15.dp)
+                .width(343.dp),
+            shape = RoundedCornerShape(12.dp),
+            colors = TextFieldDefaults.outlinedTextFieldColors(
+                focusedBorderColor = cardColor,
+                unfocusedBorderColor = cardColor),
             value = organizer,
             onValueChange = { organizer = it },
-            label = { Text("Организаторы") })
+            label = { Text("Организаторы", fontSize = 14.sp, color = Color.Gray) })
 
         OutlinedTextField(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .padding(bottom = 15.dp)
+                .width(343.dp),
+            shape = RoundedCornerShape(12.dp),
+            colors = TextFieldDefaults.outlinedTextFieldColors(
+                focusedBorderColor = cardColor,
+                unfocusedBorderColor = cardColor),
             value = phoneNumber,
             onValueChange = { phoneNumber = it },
-            label = { Text("Контактный телефон") })
+            label = { Text("Контактный телефон", fontSize = 14.sp, color = Color.Gray) })
 
         Button(onClick = {
             viewModel.createEvent(eventPost)

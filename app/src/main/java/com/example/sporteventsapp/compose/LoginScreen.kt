@@ -92,7 +92,13 @@ fun LoginScreen(navController: NavController, dataStoreManager: DataStoreManager
         .background(color = lightColor),
         Alignment.TopCenter,
     ){
-        Text(text = "Войти в аккаунт", fontSize = 30.sp, color = textColor)
+        Column(modifier = Modifier.fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
+            Text(text = "Войти в аккаунт", fontSize = 30.sp, color = textColor)
+            Text(text = "Множество соревнований ждут вас!", fontSize = 14.sp, color = textColor, modifier = Modifier.offset(y = 10.dp))
+        }
+
     }
 
 
@@ -146,21 +152,16 @@ fun LoginScreen(navController: NavController, dataStoreManager: DataStoreManager
         }
 
 
-
-
-
-            //val coroutine = rememberCoroutineScope()
             Button(onClick = {
                 viewModel.getLogin(loginPost, dataStoreManager)
-                navController.navigate(Screens.Event.route)
-
-
-                //CoroutineScope(Dispatchers.IO).launch{
-
-
-                //}
-
-
+                viewModel.myResponse1.observe(context, Observer {response ->
+                    if(response.isSuccessful){
+                        navController.navigate(Screens.Event.route)
+                    }
+                    else {
+                        response.errorBody()?.toString()?.let { Log.d("ok", it) }
+                    }
+                })
             },
                 modifier = Modifier
                     .width(343.dp)
