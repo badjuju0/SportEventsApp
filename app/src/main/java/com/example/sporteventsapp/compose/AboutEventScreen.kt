@@ -96,7 +96,17 @@ fun AboutEventScreen(navController: NavController, dataStoreManager: DataStoreMa
 
     var isVisible by remember { mutableStateOf(false) }
 
-
+    val imageList = listOf(
+        R.drawable.boxback,
+        R.drawable.tenisback,
+        R.drawable.footback,
+        R.drawable.basketback,
+        R.drawable.runback,
+        R.drawable.hockeyback,
+        R.drawable.jymback,
+        R.drawable.athleticback,
+        R.drawable.sportback,
+    )
     LaunchedEffect(key1 = true ){
         dataStoreManager.getTitle().collect{title->
             viewModel.getEvent(title = title.title)
@@ -136,7 +146,7 @@ fun AboutEventScreen(navController: NavController, dataStoreManager: DataStoreMa
 
         Box (modifier = Modifier
             .fillMaxWidth()
-            .height(100.dp)
+            .height(70.dp)
             .background(color = lightColor),
             Alignment.Center,
         ){
@@ -150,8 +160,21 @@ fun AboutEventScreen(navController: NavController, dataStoreManager: DataStoreMa
             contentAlignment = Alignment.TopCenter
             ){
 
+
+
             Image(
-                painter = painterResource(id = R.drawable.boxback),
+                painter = when (event?.sportType) {
+                    "Бокс" -> painterResource(id = R.drawable.boxback)
+                    "Бег" -> painterResource(id = R.drawable.runback)
+                    "Атлектика" -> painterResource(id = R.drawable.athleticback)
+                    "Тяжелая атлектика" -> painterResource(id = R.drawable.jymback)
+                    "Футбол" -> painterResource(id = R.drawable.footback)
+                    "Хоккей" -> painterResource(id = R.drawable.hockeyback)
+                    "Баскетбол" -> painterResource(id = R.drawable.basketback)
+                    else -> { // Note the block
+                        painterResource(id = R.drawable.sportback)
+                    }
+                },
                 contentDescription = "background",
                 modifier = Modifier
                     .blur(

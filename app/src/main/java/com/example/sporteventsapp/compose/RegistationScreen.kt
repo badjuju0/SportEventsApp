@@ -72,17 +72,17 @@ fun RegistrationScreen(navController: NavController, dataStoreManager: DataStore
         Row (modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceAround)
     {
         Column(
-            modifier = Modifier.offset(55.dp),
+            modifier = Modifier.offset(50.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Text("Регистрация", color = textColor, fontSize = 30.sp)
             Text(text = "Множество соревнований ждут вас!", fontSize = 14.sp, color = textColor, modifier = Modifier.offset(y = 10.dp))
         }
 
-        TextButton( modifier = Modifier.offset(15.dp),onClick = {
+        TextButton( modifier = Modifier.offset(13.dp),onClick = {
             navController.navigate(Screens.Login.route)
         }) {
-            Text(text = "Войти", fontSize = 16.sp, color = textColor)
+            Text(text = "Войти", fontSize = 12.sp, color = textColor)
         }
     }
     }

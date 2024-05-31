@@ -14,13 +14,15 @@ class DataStoreManager(val context: Context) {
         context.dataStore.edit { pref->
             pref[stringPreferencesKey("firstName")] = namesData.firstName
             pref[stringPreferencesKey("secondName")] = namesData.secondName
+            pref[stringPreferencesKey("token")] = namesData.token
         }
     }
 
     fun getData() = context.dataStore.data.map { pref ->
         return@map PostNames(
             pref[stringPreferencesKey("firstName")]?: "null",
-            pref[stringPreferencesKey("secondName")]?: "null"
+            pref[stringPreferencesKey("secondName")]?: "null",
+            pref[stringPreferencesKey("token")]?: "null"
         )
 
     }

@@ -9,6 +9,7 @@ import com.example.sporteventsapp.data.PostApplication
 import com.example.sporteventsapp.data.PostEvents
 import com.example.sporteventsapp.data.PostNames
 import com.example.sporteventsapp.data.PostReg
+import com.example.sporteventsapp.data.TokenPost
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.Body
@@ -26,6 +27,11 @@ interface SimpleAPI {
     suspend fun getRegister(
         @Body postReg: PostReg
     ): Response<PostNames>
+
+    @POST("/checkToken")
+    suspend fun getToken(
+        @Body token: TokenPost
+    ): Response<Answer>
 
     @POST("/createEvent")
     suspend fun createEvent(

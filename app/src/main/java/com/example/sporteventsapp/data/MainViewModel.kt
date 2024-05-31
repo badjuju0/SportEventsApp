@@ -23,7 +23,7 @@ import retrofit2.Response
 class MainViewModel(private val repository: Repository):ViewModel() {
 
 
-    var myResponse: MutableLiveData<Response<AboutEvent>> = MutableLiveData()
+    var myResponse: MutableLiveData<Answer> = MutableLiveData()
 
     val myResponse1: MutableLiveData<Response<PostNames>> = MutableLiveData()
 
@@ -34,6 +34,8 @@ class MainViewModel(private val repository: Repository):ViewModel() {
     val eventsList = MutableStateFlow(emptyList<EventTitle>())
 
     val event = MutableStateFlow<AboutEvent?>(null)
+
+    var tokenResponse = MutableStateFlow<Answer?>(null)
 
     var myResponse4: MutableLiveData<List<ApplicationDTO>> = MutableLiveData()
 
@@ -51,7 +53,7 @@ class MainViewModel(private val repository: Repository):ViewModel() {
             )
         myResponse1.value = response
         dataStoreManager.saveNames(
-            namesData = PostNames(response.body()?.firstName.toString(),response.body()?.secondName.toString())
+            namesData = PostNames(response.body()?.firstName.toString(),response.body()?.secondName.toString(), response.body()?.token.toString())
         )
         }
 
@@ -62,8 +64,16 @@ class MainViewModel(private val repository: Repository):ViewModel() {
             val response = repository.getRegister(postReg)
 
             dataStoreManager.saveNames(
-                namesData = PostNames(response.body()?.firstName.toString(),response.body()?.secondName.toString())
+                namesData = PostNames(response.body()?.firstName.toString(),response.body()?.secondName.toString(), response.body()?.token.toString())
             )
+        }
+    }
+
+    fun getToken(token: TokenPost){
+        viewModelScope.launch {
+            val response = repository.getToken(token)
+            tokenResponse.value = response.body()
+
         }
     }
 

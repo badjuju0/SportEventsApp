@@ -13,7 +13,8 @@ data class PostReg(
 )
 data class PostNames(
     val firstName: String,
-    val secondName: String
+    val secondName: String,
+    val token: String
 )
 
 data class PostEvents(
@@ -29,6 +30,10 @@ data class PostEvents(
 data class Answer(
     val answer: String
 )
+data class TokenPost(
+    val token: String
+)
+
 
 data class EventTitle(
     val title: String

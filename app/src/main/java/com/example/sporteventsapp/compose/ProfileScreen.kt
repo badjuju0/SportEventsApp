@@ -61,9 +61,9 @@ fun ProfileScreen(navController: NavController, dataStoreManager: DataStoreManag
                 secondName= names.secondName
             }
         }
-        Row (modifier = Modifier.fillMaxWidth().offset(x= 150.dp)){
+        Row (modifier = Modifier.fillMaxWidth().offset(x= 130.dp)){
             Text(text = "Профиль", fontSize = 30.sp, color = textColor)
-            TextButton(modifier = Modifier.padding(start = 55.dp), onClick = {
+            TextButton(modifier = Modifier.padding(start = 40.dp), onClick = {
                 navController.navigate(Screens.Login.route)
             }) {
                 Text(text = "Выйти", fontSize = 16.sp, color = textColor)
@@ -91,7 +91,7 @@ fun ProfileScreen(navController: NavController, dataStoreManager: DataStoreManag
         },
             modifier = Modifier
                 .width(343.dp)
-                .offset(y = 100.dp),
+                .offset(y = 80.dp),
             colors = ButtonDefaults.buttonColors(backgroundColor = buttonColor),
             shape = RoundedCornerShape(100)
         ) {

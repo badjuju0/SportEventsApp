@@ -12,6 +12,7 @@ import com.example.sporteventsapp.data.PostApplication
 import com.example.sporteventsapp.data.PostEvents
 import com.example.sporteventsapp.data.PostNames
 import com.example.sporteventsapp.data.PostReg
+import com.example.sporteventsapp.data.TokenPost
 import retrofit2.Response
 import retrofit2.http.POST
 
@@ -24,6 +25,10 @@ class Repository() {
 
     suspend fun getRegister(postReg: PostReg): Response<PostNames> {
         return RetrofitInstance.api.getRegister(postReg)
+    }
+
+    suspend fun getToken(tokenPost: TokenPost): Response<Answer> {
+        return RetrofitInstance.api.getToken(tokenPost)
     }
 
     suspend fun getEvents(): Response<EventTitles> {
