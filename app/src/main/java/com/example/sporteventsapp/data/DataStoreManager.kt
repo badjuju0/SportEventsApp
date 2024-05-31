@@ -36,8 +36,8 @@ class DataStoreManager(val context: Context) {
 
     fun getTitle() = context.dataStore.data.map { pref ->
         return@map EventTitle(
-            pref[stringPreferencesKey("title")]?: "null"
-
+            pref[stringPreferencesKey("title")]?: "null",
+            pref[stringPreferencesKey("sportType")]?: "null"
         )
 
     }

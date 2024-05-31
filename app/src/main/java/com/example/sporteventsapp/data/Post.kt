@@ -36,7 +36,8 @@ data class TokenPost(
 
 
 data class EventTitle(
-    val title: String
+    val title: String,
+    val sportType: String
 )
 
 data class EventTitles(

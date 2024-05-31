@@ -141,18 +141,18 @@ fun EventCard(modifier: Modifier, navController: NavController, text: EventTitle
         R.drawable.bottle
     )
 
-    val randomImage = imageList.random()
+
 
     Card(
         onClick = {navController.navigate(Screens.AboutEvent.route)
             coroutine.launch{
                 dataStoreManager.saveTitle(
-                    titleData = EventTitle(text.title)
+                    titleData = EventTitle(text.title, text.sportType)
                 )
             } },
         modifier = Modifier
             .width(343.dp)
-            .height(84.dp)
+            .height(120.dp)
             .padding(10.dp),
         backgroundColor = cardColor,
         shape = RoundedCornerShape(15.dp)
@@ -163,12 +163,23 @@ fun EventCard(modifier: Modifier, navController: NavController, text: EventTitle
         )
         {
             Image(
-                painter =
-                painterResource(id = randomImage),
+                painter = when (text.sportType) {
+                    "Бокс" -> painterResource(id = R.drawable.boxing)
+                    "Бег" -> painterResource(id = R.drawable.stopwatch)
+                    "Атлектика" -> painterResource(id = R.drawable.run)
+                    "Тяжелая атлектика" -> painterResource(id = R.drawable.gymming)
+                    "Футбол" -> painterResource(id = R.drawable.football)
+                    "Хоккей" -> painterResource(id = R.drawable.trophy)
+                    "Баскетбол" -> painterResource(id = R.drawable.basketball)
+                    "Бадминтон" -> painterResource(id = R.drawable.badminton)
+                    else -> { // Note the block
+                        painterResource(id = R.drawable.trophy)
+                    }
+                },
                 contentDescription = "type",
                 modifier = Modifier
                     .clickable(onClick = {})
-                    .requiredSize(100.dp)
+                    .requiredSize(150.dp)
                     .padding(10.dp))
 
             Text(text = text.title, fontWeight = FontWeight.Bold, fontSize = 16.sp, color = Color.White, modifier = Modifier.padding(16.dp))
