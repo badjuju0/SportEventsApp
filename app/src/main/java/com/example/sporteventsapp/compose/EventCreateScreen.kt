@@ -1,5 +1,6 @@
 package com.example.sporteventsapp.compose
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -22,6 +23,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -48,7 +50,7 @@ fun EventCreateScreen(navController: NavController, dataStoreManager:DataStoreMa
     viewModel = ViewModelProvider(ViewModelStore(), viewModelFactory).get(MainViewModel::class.java)
 
     interceptor.level = HttpLoggingInterceptor.Level.BODY
-
+    val context = LocalContext.current
     Column (modifier = Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
@@ -144,8 +146,14 @@ fun EventCreateScreen(navController: NavController, dataStoreManager:DataStoreMa
             label = { Text("Контактный телефон", fontSize = 14.sp, color = Color.Gray) })
 
         Button(onClick = {
-            viewModel.createEvent(eventPost)
-            navController.navigate(Screens.Profile.route)
+            if(phoneNumber.isEmpty() or sportType.isEmpty() or title.isEmpty() or dates.isEmpty() or location.isEmpty() or organizer.isEmpty()){
+                Toast.makeText(context, "Укажите все данные", Toast.LENGTH_SHORT).show()
+            }
+            if(phoneNumber.isNotEmpty() and sportType.isNotEmpty() and title.isNotEmpty() and dates.isNotEmpty() and  location.isNotEmpty() and  organizer.isNotEmpty()){
+                viewModel.createEvent(eventPost)
+                navController.navigate(Screens.Profile.route)
+            }
+
         },
             modifier = Modifier
                 .width(343.dp),

@@ -134,8 +134,10 @@ fun ParticipantCard(modifier: Modifier, participant: ApplicationDTO){
             )
             {
                 Text(text = participant.fio, fontWeight = FontWeight.Bold, fontSize = 16.sp, color = Color.White, modifier = Modifier.padding(5.dp))
-
-                Text(text = "Возраст: ${participant.age}", fontWeight = FontWeight.Bold, fontSize = 12.sp, color = Color.Gray, modifier = Modifier.padding(5.dp))
+                if (participant.teamName?.isNotEmpty() == true){
+                    Text(text = "Команда: ${participant.teamName}", fontWeight = FontWeight.Bold, fontSize = 16.sp, color = Color.Gray, modifier = Modifier.padding(5.dp))
+                }
+                Text(text = "Возраст: ${participant.age}", fontWeight = FontWeight.Bold, fontSize = 12.sp, color = Color.Gray, modifier = Modifier.padding(7.dp))
 
             }
         }

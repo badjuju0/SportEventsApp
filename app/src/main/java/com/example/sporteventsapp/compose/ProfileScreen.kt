@@ -64,7 +64,7 @@ fun ProfileScreen(navController: NavController, dataStoreManager: DataStoreManag
         Row (modifier = Modifier.fillMaxWidth().offset(x= 130.dp)){
             Text(text = "Профиль", fontSize = 30.sp, color = textColor)
             TextButton(modifier = Modifier.padding(start = 40.dp), onClick = {
-                navController.navigate(Screens.Login.route)
+                navController.navigate(Screens.Registration.route)
             }) {
                 Text(text = "Выйти", fontSize = 16.sp, color = textColor)
             }

@@ -1,5 +1,6 @@
 package com.example.sporteventsapp.compose
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -25,6 +26,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -46,7 +48,7 @@ fun EventApplicationScreen(dataStoreManager: DataStoreManager){
     val viewModelFactory = MainViewModelFactory(repository)
 
     viewModel = ViewModelProvider(ViewModelStore(), viewModelFactory).get(MainViewModel::class.java)
-
+    val context = LocalContext.current
     Column(modifier = Modifier
         .fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
@@ -118,7 +120,13 @@ fun EventApplicationScreen(dataStoreManager: DataStoreManager){
         val post = PostApplication(fio,age,phoneNumber,teamName, approve, eventTitle)
 
         Button(onClick = {
-            viewModel.createApplication(post)
+            if(phoneNumber.isEmpty() or age.isEmpty() or fio.isEmpty() ){
+                Toast.makeText(context, "Укажите все данные", Toast.LENGTH_SHORT).show()
+            }
+            if(phoneNumber.isNotEmpty() and age.isNotEmpty() and fio.isNotEmpty() ){
+                viewModel.createApplication(post)
+            }
+
 
         },
 

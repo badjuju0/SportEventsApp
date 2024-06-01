@@ -2,6 +2,7 @@ package com.example.sporteventsapp.compose
 
 import android.annotation.SuppressLint
 import android.text.TextUtils
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -28,6 +29,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.ViewModelProvider
@@ -61,6 +63,7 @@ fun RegistrationScreen(navController: NavController, dataStoreManager: DataStore
     viewModel = ViewModelProvider(ViewModelStore(), viewModelFactory).get(MainViewModel::class.java)
 
     interceptor.level = HttpLoggingInterceptor.Level.BODY
+    val context = LocalContext.current
 
     Box (modifier = Modifier
         .height(90.dp)
@@ -167,10 +170,17 @@ fun RegistrationScreen(navController: NavController, dataStoreManager: DataStore
 
 
             Button(onClick = {
-                navController.navigate(Screens.Event.route)
-                CoroutineScope(Dispatchers.IO).launch {
-                    viewModel.getRegister(registerPost, dataStoreManager)
+
+                if(firstName_text.isEmpty() or secondName_text.isEmpty() or email_text.isEmpty() or password_text.isEmpty()){
+                    Toast.makeText(context, "Укажите все данные", Toast.LENGTH_SHORT).show()
                 }
+                if(firstName_text.isNotEmpty() and secondName_text.isNotEmpty() and email_text.isNotEmpty() and password_text.isNotEmpty()){
+                    navController.navigate(Screens.Event.route)
+                    CoroutineScope(Dispatchers.IO).launch {
+                        viewModel.getRegister(registerPost, dataStoreManager)
+                    }
+                }
+
             },
                 modifier = Modifier
                     .width(343.dp)

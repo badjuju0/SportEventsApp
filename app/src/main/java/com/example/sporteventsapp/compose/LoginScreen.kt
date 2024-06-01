@@ -84,6 +84,9 @@ fun LoginScreen(navController: NavController, dataStoreManager: DataStoreManager
     viewModel = ViewModelProvider(ViewModelStore(), viewModelFactory).get(MainViewModel::class.java)
 
     val context =LocalLifecycleOwner.current
+
+    val contextText = LocalContext.current
+
     interceptor.level = HttpLoggingInterceptor.Level.BODY
 
     Box (modifier = Modifier
@@ -153,15 +156,21 @@ fun LoginScreen(navController: NavController, dataStoreManager: DataStoreManager
 
 
             Button(onClick = {
-                viewModel.getLogin(loginPost, dataStoreManager)
-                viewModel.myResponse1.observe(context, Observer {response ->
-                    if(response.isSuccessful){
-                        navController.navigate(Screens.Event.route)
-                    }
-                    else {
-                        response.errorBody()?.toString()?.let { Log.d("ok", it) }
-                    }
-                })
+                if(email_text.isEmpty() and  password_text.isEmpty()){
+                    Toast.makeText(contextText, "Укажите все данные", Toast.LENGTH_SHORT).show()
+                }
+                if(email_text.isNotEmpty() and password_text.isNotEmpty()){
+                    viewModel.getLogin(loginPost, dataStoreManager)
+                    viewModel.myResponse1.observe(context, Observer {response ->
+                        if(response.isSuccessful){
+                            navController.navigate(Screens.Event.route)
+                        }
+                        else {
+                            response.errorBody()?.toString()?.let { Log.d("ok", it) }
+                        }
+                    })
+                }
+
             },
                 modifier = Modifier
                     .width(343.dp)

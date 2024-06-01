@@ -141,7 +141,7 @@ fun ApplicationCard(modifier: Modifier, application: ApplicationDTO,deletedItem:
     Card(
         modifier = Modifier
             .width(345.dp)
-            .height(130.dp)
+            .height(155.dp)
             .padding(10.dp),
         backgroundColor = cardColor,
         shape = RoundedCornerShape(15.dp)
@@ -165,8 +165,11 @@ fun ApplicationCard(modifier: Modifier, application: ApplicationDTO,deletedItem:
             )
             {
                 Text(text = application.fio, fontWeight = FontWeight.Bold, fontSize = 16.sp, color = Color.White, modifier = Modifier.padding(5.dp))
+                if (application.teamName?.isNotEmpty() == true){
+                    Text(text = "Команда: ${application.teamName}", fontWeight = FontWeight.Bold, fontSize = 16.sp, color = Color.Gray, modifier = Modifier.padding(5.dp))
+                }
 
-                Text(text = "Возраст: ${application.age}", fontWeight = FontWeight.Bold, fontSize = 12.sp, color = Color.Gray, modifier = Modifier.padding(5.dp))
+                Text(text = "Возраст: ${application.age}", fontWeight = FontWeight.Bold, fontSize = 12.sp, color = Color.Gray, modifier = Modifier.padding( 7.dp))
 
                 Row( modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.Start,
