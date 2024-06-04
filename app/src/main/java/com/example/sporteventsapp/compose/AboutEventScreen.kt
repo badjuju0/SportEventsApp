@@ -219,19 +219,19 @@ fun AboutEventScreen(navController: NavController, dataStoreManager: DataStoreMa
                             color = textColor
                         )
                     }
-                    Button(
-                        onClick = {
-                            navController.navigate(Screens.Participants.route)
-                        },
-                        modifier = Modifier
-                            .width(145.dp),
-                        colors = ButtonDefaults.buttonColors(backgroundColor = lightColor),
-                        shape = RoundedCornerShape(100)
-                    ) {
-                        androidx.compose.material.Text(text = "Список участников", fontSize = 16.sp, color = textColor)
-                    }
-                }
 
+                }
+                Button(
+                    onClick = {
+                        navController.navigate(Screens.Participants.route)
+                    },
+                    modifier = Modifier
+                        .width(145.dp),
+                    colors = ButtonDefaults.buttonColors(backgroundColor = lightColor),
+                    shape = RoundedCornerShape(100)
+                ) {
+                    androidx.compose.material.Text(text = "Список участников", fontSize = 16.sp, color = textColor)
+                }
 
 
 
